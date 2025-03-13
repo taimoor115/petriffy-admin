@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import Header from '../components/Header/index';
-import Sidebar from '../components/Sidebar';
-import PropTypes from 'prop-types';
+import { useState } from "react";
+import Sidebar from "../components/Sidebar";
+import PropTypes from "prop-types";
 
 const DefaultLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <>
-      <div className='flex h-screen overflow-hidden'>
+      <div className="flex h-screen overflow-hidden">
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <div className='relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden'>
-          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
           <main>
-            <div className='mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10'>{children}</div>
+            <div className="p-4 mx-auto max-w-screen-2xl md:p-6 2xl:p-10">
+              {children}
+            </div>
           </main>
         </div>
       </div>

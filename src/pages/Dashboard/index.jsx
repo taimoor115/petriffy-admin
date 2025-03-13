@@ -1,11 +1,7 @@
-import { Breadcrumb, DefaultLayout } from '../../components';
+import { DefaultLayout } from "../../components";
 
 const Dashboard = () => {
-  return (
-    <DefaultLayout>
-      <Breadcrumb pageName='Dashboard' />
-    </DefaultLayout>
-  );
+  return <DefaultLayout>Testing</DefaultLayout>;
 };
 
 export default Dashboard;
