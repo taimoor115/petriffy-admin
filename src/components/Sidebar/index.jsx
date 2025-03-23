@@ -77,7 +77,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           <div>
             <ul className="mb-6 flex flex-col gap-1.5">
               <NavLink
-                to="/dashboard"
+                to="/"
                 className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out ${
                   (pathname === "/" || pathname.includes("dashboard")) &&
                   "bg-graydark"
