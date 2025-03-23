@@ -1,4 +1,6 @@
 import { Field, ErrorMessage } from "formik";
+import { EyeSvg, HideSvg } from "../../../assets/svgs";
+import { Button } from "../../../common";
 
 const InputField = ({
   label,
@@ -26,22 +28,16 @@ const InputField = ({
           name={name}
           type={showPasswordToggle && isPasswordVisible ? "text" : type}
           placeholder={placeholder}
-          className={`w-full px-3 py-2 placeholder:text-[#929292] border rounded-[10.45px] focus:border-transparent border-custom_grey focus:outline-none focus:ring-1 focus:ring-custom-orange ${className}`}
+          className={`w-full px-3 py-2 placeholder:text-[#929292] placeholder:text-sm border rounded-[10.45px] focus:border-transparent border-gray-6 focus:outline-none focus:ring-1 focus:ring-custom_primary ${className}`}
         />
         {showPasswordToggle && (
-          <button
+          <Button
             type="button"
             onClick={onTogglePasswordVisibility}
             className="absolute right-2 top-2"
           >
-            {isPasswordVisible ? (
-              <svg /* SVG for eye open */>{/* SVG content for eye open */}</svg>
-            ) : (
-              <svg /* SVG for eye closed */>
-                {/* SVG content for eye closed */}
-              </svg>
-            )}
-          </button>
+            {isPasswordVisible ? <EyeSvg /> : <HideSvg />}
+          </Button>
         )}
       </div>
       <ErrorMessage

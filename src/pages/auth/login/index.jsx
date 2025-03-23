@@ -1,55 +1,83 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import * as Yup from "yup";
 import InputField from "../../../components/form-components/input-box";
-
-// Validation Schema
-const validationSchema = Yup.object({
-  email: Yup.string().email("Invalid email address").required("Required"),
-  password: Yup.string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Required"),
-});
+import { loginSchema } from "../../../schema/auth.schema";
+import { Button, Heading } from "../../../common";
+import { LogoSvg } from "../../../assets/svgs";
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible);
-  };
+  const togglePasswordVisibility = () => setIsPasswordVisible((prev) => !prev);
+
+  const inputFields = [
+    { name: "email", type: "email", label: "Email", placeholder: "Email" },
+    {
+      name: "password",
+      type: isPasswordVisible ? "text" : "password",
+      label: "Password",
+      placeholder: "Password",
+      showPasswordToggle: true,
+      onTogglePasswordVisibility: togglePasswordVisibility,
+      isPasswordVisible,
+    },
+  ];
 
   return (
-    <div className="flex items-center justify-center min-h-screen ">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
-        <Formik
-          initialValues={{ email: "", password: "" }}
-          validationSchema={validationSchema}
-          onSubmit={(values) => {
-            console.log(values);
-          }}
-        >
-          {() => (
-            <Form>
-              <InputField name="email" type="email" placeholder="Email" />
-              <InputField
-                name="password"
-                type="password"
-                placeholder="Password"
-                showPasswordToggle={true}
-                onTogglePasswordVisibility={togglePasswordVisibility}
-                isPasswordVisible={isPasswordVisible}
-              />
-              <button
-                type="submit"
-                className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-              >
-                Submit
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </div>
+    <div className="flex min-h-screen">
+      <aside className="flex-col justify-between hidden p-12 text-white md:flex md:w-1/2 bg-custom_primary">
+        <div className="flex flex-col gap-8">
+          <LogoSvg />
+          <div className="mt-16">
+            <h1 className="mb-4 text-5xl font-bold">
+              Hello <br /> Petriffy Admin!👋
+            </h1>
+            <p className="mt-6 text-lg">
+              Welcome to a platform where you can manage group chats, connect
+              with doctors, and share insightful blogs. Engage with users and
+              streamline communication—all from a single, powerful admin
+              interface!
+            </p>
+          </div>
+        </div>
+        <div className="text-sm opacity-70">
+          © 2025 Petriffy. All rights reserved.
+        </div>
+      </aside>
+
+      <main className="flex flex-col items-center justify-center w-full p-8 md:w-1/2">
+        <div className="w-full max-w-md">
+          <Heading heading="Petriffy 👋" className="mb-8" />
+          <section className="mb-8">
+            <h2 className="text-2xl font-bold">Welcome Back Petriffy Admin!</h2>
+            <p className="mt-4 text-sm text-gray-600">
+              Log in now to gain access to all the powerful admin features of
+              Petriffy!
+              <br /> It's quick and easy—get started today!
+            </p>
+          </section>
+
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            validationSchema={loginSchema}
+            onSubmit={(values) => console.log(values)}
+          >
+            {() => (
+              <Form className="space-y-5">
+                {inputFields.map((field) => (
+                  <InputField key={field.name} {...field} />
+                ))}
+                <Button
+                  type="submit"
+                  className="w-full py-3 text-white rounded bg-custom_primary hover:bg-gray-800"
+                >
+                  Login Now
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </main>
     </div>
   );
 };

@@ -19,7 +19,11 @@ module.exports = {
     },
     extend: {
       colors: {
+        custom_primary: "var(--custom-primary)",
+        custom_secondary: "var(--custom-secondary)",
+
         current: "currentColor",
+
         transparent: "transparent",
         white: "#FFFFFF",
         black: "#111111",
