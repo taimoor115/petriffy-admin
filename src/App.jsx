@@ -1,11 +1,15 @@
-import React from "react";
-import Routes from "./routes";
+import React, { Suspense } from "react";
+import { RouterProvider } from "react-router-dom";
+import { ErrorBoundary, Loader } from "./common";
+import router from "./routes";
 
 const App = () => {
   return (
-    <>
-      <Routes />
-    </>
+    <ErrorBoundary>
+      <Suspense fallback={<Loader />}>
+        <RouterProvider router={router} />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 
