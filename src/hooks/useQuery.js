@@ -59,7 +59,21 @@ const useQueryApi = (endpoint, options = {}) => {
     return useMutation({
       mutationFn: async ({ body, queryParams = {}, headers = {} }) => {
         try {
-          const config = createConfig("POST", body, queryParams, headers);
+          const config = createConfig(
+            "POST",
+            body ? body : undefined,
+            Object.keys(queryParams).length ? queryParams : undefined,
+            Object.keys(headers).length ? headers : undefined
+          );
+          if (
+            !body &&
+            !Object.keys(queryParams).length &&
+            !Object.keys(headers).length
+          ) {
+            config.data = undefined;
+            config.params = undefined;
+            config.headers = undefined;
+          }
           const response = await axiosInstance(config);
           return response.data;
         } catch (err) {
