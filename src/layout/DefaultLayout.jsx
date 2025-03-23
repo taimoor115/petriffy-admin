@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import Sidebar from "../components/sidebar";
-import PropTypes from "prop-types";
 
-const DefaultLayout = ({ children }) => {
+const DefaultLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -12,7 +12,7 @@ const DefaultLayout = ({ children }) => {
         <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
           <main>
             <div className="p-4 mx-auto max-w-screen-2xl md:p-6 2xl:p-10">
-              {children}
+              <Outlet />
             </div>
           </main>
         </div>
@@ -21,8 +21,5 @@ const DefaultLayout = ({ children }) => {
   );
 };
 
-DefaultLayout.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default DefaultLayout;

@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ClientError, Login, NotFound } from "./import";
+import { ClientError, Home, Login, NotFound } from "./import";
+import { DefaultLayout } from "../components";
+import ProtectedRoute from "../components/protected-route";
 
 const router = createBrowserRouter([
   {
@@ -7,6 +9,21 @@ const router = createBrowserRouter([
     element: <Login />,
     errorElement: <ClientError />,
     public: true,
+  },
+  {
+    path: "/",
+    element: <DefaultLayout />,
+    errorElement: <ClientError />,
+    children: [
+      {
+        index: true,
+        element: (
+          <ProtectedRoute allowedRoles={["ADMIN"]}>
+            <Home />
+          </ProtectedRoute>
+        ),
+      },
+    ],
   },
   { path: "*", element: <NotFound />, errorElement: <ClientError /> },
 ]);

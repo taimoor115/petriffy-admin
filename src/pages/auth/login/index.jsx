@@ -1,27 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { Formik, Form } from "formik";
 import InputField from "../../../components/form-components/input-box";
 import { loginSchema } from "../../../schema/auth.schema";
 import { Button, Heading } from "../../../common";
 import { LogoSvg } from "../../../assets/svgs";
+import { useLogin } from "../../../hooks";
+import { encryptPassword } from "../../../utils/encrypt-password";
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const { login, isLoading } = useLogin();
 
-  const togglePasswordVisibility = () => setIsPasswordVisible((prev) => !prev);
+  const inputFields = useMemo(
+    () => [
+      { name: "email", type: "email", label: "Email", placeholder: "Email" },
+      {
+        name: "password",
+        type: isPasswordVisible ? "text" : "password",
+        label: "Password",
+        placeholder: "Password",
+        showPasswordToggle: true,
+        onTogglePasswordVisibility: () => setIsPasswordVisible((prev) => !prev),
+        isPasswordVisible,
+      },
+    ],
+    [isPasswordVisible]
+  );
 
-  const inputFields = [
-    { name: "email", type: "email", label: "Email", placeholder: "Email" },
-    {
-      name: "password",
-      type: isPasswordVisible ? "text" : "password",
-      label: "Password",
-      placeholder: "Password",
-      showPasswordToggle: true,
-      onTogglePasswordVisibility: togglePasswordVisibility,
-      isPasswordVisible,
+  const handleSubmit = useCallback(
+    async (values) => {
+      const encryptedPassword = encryptPassword(values.password);
+      await login({
+        body: { email: values.email, password: encryptedPassword },
+      });
     },
-  ];
+    [login]
+  );
 
   return (
     <div className="flex min-h-screen">
@@ -60,7 +74,7 @@ const Login = () => {
           <Formik
             initialValues={{ email: "", password: "" }}
             validationSchema={loginSchema}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={handleSubmit}
           >
             {() => (
               <Form className="space-y-5">
@@ -68,6 +82,7 @@ const Login = () => {
                   <InputField key={field.name} {...field} />
                 ))}
                 <Button
+                  disabled={isLoading}
                   type="submit"
                   className="w-full py-3 text-white rounded bg-custom_primary hover:bg-gray-800"
                 >
