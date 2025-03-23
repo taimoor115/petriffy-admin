@@ -1,8 +1,7 @@
-import { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
-import { NavLink, useLocation } from "react-router-dom";
+import { useEffect, useRef } from "react";
 import { MdOutlineDashboard } from "react-icons/md";
-import { logo } from "../../assets/images";
+import { NavLink, useLocation } from "react-router-dom";
 import { LogoSvg } from "../../assets/svgs";
 import { Heading } from "../../common";
 
