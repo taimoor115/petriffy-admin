@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { ClientError, Home, Login, NotFound } from "./import";
-import { DefaultLayout } from "../components";
+import { DefaultLayout } from "../layout/index";
 import ProtectedRoute from "../components/protected-route";
 
 const router = createBrowserRouter([
