@@ -1,5 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ClientError, Home, Login, NotFound, Profile } from "./import";
+import {
+  Blogs,
+  ClientError,
+  Community,
+  Doctors,
+  Home,
+  Login,
+  NotFound,
+  Posts,
+  Profile,
+  Users,
+} from "./import";
 import { DefaultLayout } from "../layout/index";
 import { ProtectedRoute } from "../components";
 
@@ -26,8 +37,48 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: (
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={["ADMIN"]}>
             <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/doctors",
+        element: (
+          <ProtectedRoute allowedRoles={["ADMIN"]}>
+            <Doctors />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/communities",
+        element: (
+          <ProtectedRoute allowedRoles={["ADMIN"]}>
+            <Community />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/blogs",
+        element: (
+          <ProtectedRoute allowedRoles={["ADMIN"]}>
+            <Blogs />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/posts",
+        element: (
+          <ProtectedRoute allowedRoles={["ADMIN"]}>
+            <Posts />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/users",
+        element: (
+          <ProtectedRoute allowedRoles={["ADMIN"]}>
+            <Users />
           </ProtectedRoute>
         ),
       },
