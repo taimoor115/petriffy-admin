@@ -4,6 +4,7 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
 import { LogoSvg } from "../../assets/svgs";
 import { Heading } from "../../common";
+import { links } from "../../constant/sidebar";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const location = useLocation();
@@ -39,7 +40,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-black duration-300 ease-linear  lg:static lg:translate-x-0 ${
+      className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-zinc-900 duration-300 ease-linear  lg:static lg:translate-x-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
@@ -54,7 +55,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           onClick={() => setSidebarOpen(!sidebarOpen)}
           aria-controls="sidebar"
           aria-expanded={sidebarOpen}
-          className="block lg:hidden"
+          className="block bg-red-400 lg:hidden"
         >
           <svg
             className="fill-current"
@@ -75,16 +76,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         <nav className="px-4 py-4 mt-5 lg:mt-9 lg:px-6">
           <div>
             <ul className="mb-6 flex flex-col gap-1.5">
-              <NavLink
-                to="/"
-                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out ${
-                  (pathname === "/" || pathname.includes("statistics")) &&
-                  "bg-graydark"
-                }`}
-              >
-                <MdOutlineDashboard />
-                Statistics
-              </NavLink>
+              {links.map(({ title, link, icon: Icon }) => (
+                <NavLink
+                  key={title}
+                  to={link}
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-white duration-300 ease-in-out ${
+                    pathname === link && "bg-graydark"
+                  }`}
+                >
+                  <Icon />
+                  {title}
+                </NavLink>
+              ))}
             </ul>
           </div>
         </nav>
