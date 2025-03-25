@@ -14,6 +14,20 @@ import {
 import { DefaultLayout } from "../layout/index";
 import { ProtectedRoute } from "../components";
 
+const ProtectedRouteWrapper = ({ children }) => (
+  <ProtectedRoute allowedRoles={["ADMIN"]}>{children}</ProtectedRoute>
+);
+
+const routes = [
+  { path: "/", element: <Home /> },
+  { path: "/profile", element: <Profile /> },
+  { path: "/doctors", element: <Doctors /> },
+  { path: "/communities", element: <Community /> },
+  { path: "/blogs", element: <Blogs /> },
+  { path: "/posts", element: <Posts /> },
+  { path: "/users", element: <Users /> },
+];
+
 const router = createBrowserRouter([
   {
     path: "/auth/login",
@@ -29,59 +43,15 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <ProtectedRoute allowedRoles={["ADMIN"]}>
+          <ProtectedRouteWrapper>
             <Home />
-          </ProtectedRoute>
+          </ProtectedRouteWrapper>
         ),
       },
-      {
-        path: "/profile",
-        element: (
-          <ProtectedRoute allowedRoles={["ADMIN"]}>
-            <Profile />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/doctors",
-        element: (
-          <ProtectedRoute allowedRoles={["ADMIN"]}>
-            <Doctors />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/communities",
-        element: (
-          <ProtectedRoute allowedRoles={["ADMIN"]}>
-            <Community />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/blogs",
-        element: (
-          <ProtectedRoute allowedRoles={["ADMIN"]}>
-            <Blogs />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/posts",
-        element: (
-          <ProtectedRoute allowedRoles={["ADMIN"]}>
-            <Posts />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/users",
-        element: (
-          <ProtectedRoute allowedRoles={["ADMIN"]}>
-            <Users />
-          </ProtectedRoute>
-        ),
-      },
+      ...routes.map((route) => ({
+        path: route.path,
+        element: <ProtectedRouteWrapper>{route.element}</ProtectedRouteWrapper>,
+      })),
     ],
   },
   { path: "*", element: <NotFound />, errorElement: <ClientError /> },
