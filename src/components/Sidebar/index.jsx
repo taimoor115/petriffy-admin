@@ -78,12 +78,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               <NavLink
                 to="/"
                 className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out ${
-                  (pathname === "/" || pathname.includes("dashboard")) &&
+                  (pathname === "/" || pathname.includes("statistics")) &&
                   "bg-graydark"
                 }`}
               >
                 <MdOutlineDashboard />
-                Dashboard
+                Statistics
               </NavLink>
             </ul>
           </div>
@@ -91,11 +91,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       </div>
     </aside>
   );
-};
-
-Sidebar.propTypes = {
-  sidebarOpen: PropTypes.bool.isRequired,
-  setSidebarOpen: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

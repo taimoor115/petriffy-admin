@@ -9,9 +9,9 @@ const DefaultLayout = () => {
     <>
       <div className="flex h-screen overflow-hidden">
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
+        <div className="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto bg-[#EFEFEF]">
           <main>
-            <div className="p-4 mx-auto max-w-screen-2xl md:p-6 2xl:p-10">
+            <div className="p-4 mx-auto max-w-screen-2xl md:p-6 2xl:p-10 ">
               <Outlet />
             </div>
           </main>

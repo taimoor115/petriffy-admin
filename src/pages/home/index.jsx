@@ -1,9 +1,9 @@
 import { DropdownButton, Heading } from "../../common";
-import { useAuth } from "../../context/auth";
+import { StatisticsCard } from "../../components";
+import { cardsData } from "../../constant/home";
 import { useLogout } from "../../hooks";
 
 const Home = () => {
-  const { user } = useAuth();
   const { logout, isLoading } = useLogout();
   const handleLogout = async () => {
     await logout({});
@@ -20,11 +20,17 @@ const Home = () => {
     },
   ];
   return (
-    <section>
+    <section className="container">
       <div className="flex items-center justify-between">
-        <Heading heading={user.name} className="text-base md:text-lg" />
+        <Heading heading="Statistics" className="text-lg md:text-xl" />
         <DropdownButton title="Admin" options={options} />
       </div>
+
+      <section className="grid grid-cols-1 gap-5 my-4 md:grid-cols-3">
+        {cardsData.map((item, index) => (
+          <StatisticsCard key={index} title={item.title} stats={item.count} />
+        ))}
+      </section>
     </section>
   );
 };

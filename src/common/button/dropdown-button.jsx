@@ -29,7 +29,7 @@ export default function DropdownButton({
     <div className={`relative ${className}`} ref={dropdownRef}>
       <Button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center px-3 py-1 font-semibold bg-white border rounded-md cursor-pointer gap-x-3 text-custom-black"
+        className="flex items-center px-3 py-2 font-semibold bg-white border rounded-md cursor-pointer border-custom_primary shadow-custom_primary shadow-2 gap-x-3 text-custom-black"
       >
         {image && (
           <img
