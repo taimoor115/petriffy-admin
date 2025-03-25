@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import { ClientError, Home, Login, NotFound } from "./import";
+import { ClientError, Home, Login, NotFound, Profile } from "./import";
 import { DefaultLayout } from "../layout/index";
-import ProtectedRoute from "../components/protected-route";
+import { ProtectedRoute } from "../components";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +20,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute allowedRoles={["ADMIN"]}>
             <Home />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <ProtectedRoute>
+            <Profile />
           </ProtectedRoute>
         ),
       },
