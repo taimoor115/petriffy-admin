@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <section className="container">
       <div className="flex items-center justify-between">
-        <Heading heading="Statistics" className="text-lg md:text-xl" />
+        <Heading heading="Statistics" />
         <DropdownButton title="Admin" options={options} />
       </div>
 

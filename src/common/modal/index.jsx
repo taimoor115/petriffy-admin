@@ -22,15 +22,15 @@ const Modal = () => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center px-3 overflow-x-hidden overflow-y-auto bg-black bg-opacity-60">
+    <div className="fixed inset-0 flex items-center justify-center px-3 overflow-x-hidden overflow-y-auto bg-black z-99999 bg-opacity-60">
       <div
         ref={ref}
         id="popup-modal"
         tabIndex="-1"
-        className="relative w-full max-w-lg max-h-full bg-white rounded-lg shadow dark:bg-gray-950"
+        className="relative w-full max-w-lg bg-white rounded-lg shadow dark:bg-gray-950"
         onClick={(e) => e.stopPropagation()}
       >
-        <div>{content}</div>
+        <div className="max-h-[80vh] overflow-y-auto p-4">{content}</div>
       </div>
     </div>
   );
