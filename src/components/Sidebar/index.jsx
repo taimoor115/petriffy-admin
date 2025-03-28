@@ -1,9 +1,8 @@
-import PropTypes from "prop-types";
 import { useEffect, useRef } from "react";
-import { MdOutlineDashboard } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
 import { LogoSvg } from "../../assets/svgs";
 import { Heading } from "../../common";
+import { links } from "../../constant/sidebar";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const location = useLocation();
@@ -35,6 +34,29 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
   });
+
+  useEffect(() => {
+    const touchStartHandler = (e) => {
+      const touchStartX = e.touches[0].clientX;
+      const touchMoveHandler = (e) => {
+        const touchEndX = e.touches[0].clientX;
+        if (touchStartX < 50 && touchEndX > 100) {
+          setSidebarOpen(true);
+        }
+      };
+      document.addEventListener("touchmove", touchMoveHandler);
+      document.addEventListener(
+        "touchend",
+        () => {
+          document.removeEventListener("touchmove", touchMoveHandler);
+        },
+        { once: true }
+      );
+    };
+
+    document.addEventListener("touchstart", touchStartHandler);
+    return () => document.removeEventListener("touchstart", touchStartHandler);
+  }, [sidebarOpen]);
 
   return (
     <aside
@@ -75,27 +97,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         <nav className="px-4 py-4 mt-5 lg:mt-9 lg:px-6">
           <div>
             <ul className="mb-6 flex flex-col gap-1.5">
-              <NavLink
-                to="/"
-                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out ${
-                  (pathname === "/" || pathname.includes("dashboard")) &&
-                  "bg-graydark"
-                }`}
-              >
-                <MdOutlineDashboard />
-                Dashboard
-              </NavLink>
+              {links.map(({ title, link, icon: Icon }) => (
+                <NavLink
+                  key={title}
+                  to={link}
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-white duration-300 ease-in-out ${
+                    pathname === link && "bg-graydark"
+                  }`}
+                >
+                  <Icon />
+                  {title}
+                </NavLink>
+              ))}
             </ul>
           </div>
         </nav>
       </div>
     </aside>
   );
-};
-
-Sidebar.propTypes = {
-  sidebarOpen: PropTypes.bool.isRequired,
-  setSidebarOpen: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

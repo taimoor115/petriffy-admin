@@ -22,7 +22,7 @@ const Modal = () => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center px-3 overflow-x-hidden overflow-y-auto bg-black z-99999 bg-opacity-60">
+    <div className="fixed inset-0 flex items-center justify-center px-3 overflow-x-hidden overflow-y-auto z-99999 backdrop-blur-sm bg-black/50">
       <div
         ref={ref}
         id="popup-modal"
