@@ -4,5 +4,13 @@ import DropdownButton from "./button/dropdown-button";
 import Modal from "./modal";
 import Heading from "./heading";
 import Loader from "./animated-loader/index";
-
-export { ErrorBoundary, Button, DropdownButton, Modal, Heading, Loader };
+import GenericTable from "./table";
+export {
+  ErrorBoundary,
+  Button,
+  DropdownButton,
+  Modal,
+  Heading,
+  Loader,
+  GenericTable,
+};

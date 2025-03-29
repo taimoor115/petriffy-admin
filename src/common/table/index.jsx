@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table";
-import { Skeleton } from "../../components";
+import { TableSkeleton } from "../../components";
 
 const GenericTable = ({ loading = false, data = [], columns = [] }) => {
   const [sortOrder, setSortOrder] = useState("asc");
@@ -35,24 +35,14 @@ const GenericTable = ({ loading = false, data = [], columns = [] }) => {
   const sortedData = getSortedData();
 
   const renderSkeletonRows = () => {
-    return Array(9)
-      .fill(null)
-      .map((_, index) => (
-        <TableRow key={`skeleton-${index}`}>
-          {columns.map((_, colIndex) => (
-            <TableCell key={`skeleton-cell-${colIndex}`} className="py-6.5">
-              <Skeleton className="h-4 w-[80%]" />
-            </TableCell>
-          ))}
-        </TableRow>
-      ));
+    return <TableSkeleton />;
   };
 
   return (
-    <div className="pt-8 overflow-x-auto min-h-[calc(100vh-60vh)]">
-      <Table className="w-full">
+    <div className="pt-8 overflow-x-auto min-h-[calc(100vh-60vh)] drop-shadow-lg">
+      <Table className="w-full ">
         <TableHeader>
-          <TableRow className="text-sm font-bold bg-white text-custom_grey_light text-nowrap">
+          <TableRow className="font-bold text-white bg-custom_secondary text-nowrap">
             {columns.map((col, index) => (
               <TableHead
                 key={index}
@@ -72,7 +62,7 @@ const GenericTable = ({ loading = false, data = [], columns = [] }) => {
             sortedData.map((row, index) => (
               <TableRow
                 key={row.id || index}
-                className={`transition-all duration-200 bg-white hover:bg-gray-50 ${
+                className={`transition-all duration-200 bg-white  ${
                   index % 2 !== 1 ? "bg-[#F6F6F7]" : ""
                 }`}
               >

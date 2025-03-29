@@ -9,6 +9,8 @@ import StatsSvg from "./stats";
 import UsersSvg from "./users";
 import BlogSvg from "./blog";
 import PostSvg from "./posts";
+import DeleteSvg from "./delete";
+import EditSvg from "./edit";
 export {
   HideSvg,
   EyeSvg,
@@ -21,4 +23,6 @@ export {
   StatsSvg,
   UsersSvg,
   PostSvg,
+  DeleteSvg,
+  EditSvg,
 };
