@@ -17,7 +17,7 @@ const TableLayout = ({
     <section>
       <div className="flex items-center justify-between">
         <Heading heading={title} />
-        {actionButton}
+        {actionButton && actionButton}
       </div>
 
       <input
