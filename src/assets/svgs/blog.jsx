@@ -6,18 +6,16 @@ const BlogSvg = ({ fill = "#fff" }) => {
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
-      viewBox="0 0 14 14"
+      viewBox="0 0 24 24"
     >
-      <g
-        fill={fill}
+      <path
+        fill="none"
         stroke={fill}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1"
-      >
-        <path d="M7.5.5h-5a1 1 0 0 0-1 1v9l-1 3l4-1h8a1 1 0 0 0 1-1v-5" />
-        <path d="m8.363 8.137l-3 .54l.5-3.04l4.73-4.71a1 1 0 0 1 1.42 0l1.06 1.06a1 1 0 0 1 0 1.42z" />
-      </g>
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0M3 6v13m9-13v13m9-13v13"
+      />
     </svg>
   );
 };
