@@ -25,7 +25,7 @@ export const COMMUNITY_COLUMN = (openWarningModal, openEditModal) => [
           <div className="flex justify-start">
             <Button
               onClick={() => openEditModal(row._id)}
-              className="font-medium cursor-pointer text-[#282F5A] rounded-full hover:bg-[#282F5A1F] transition-all duration-300"
+              className="font-medium p-2 cursor-pointer text-[#282F5A] rounded-full hover:bg-[#282F5A1F] transition-all duration-300"
             >
               <EditSvg />
             </Button>

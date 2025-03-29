@@ -8,6 +8,7 @@ import TableSkeleton from "./skeleton";
 import Pagination from "./pagination";
 import WarningModal from "./modals/warning";
 import EditDoctor from "./modals/edit-doctor";
+import EditCommunity from "./modals/edit-community";
 export {
   Sidebar,
   InputField,
@@ -19,4 +20,5 @@ export {
   Pagination,
   WarningModal,
   EditDoctor,
+  EditCommunity,
 };

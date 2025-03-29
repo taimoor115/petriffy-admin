@@ -7,8 +7,8 @@
     @apply font-satoshi font-normal text-base bg-white relative z-1;
   }
   :root {
-    --custom-primary: #123524;
-    --custom-secondary: #1e583c;
+    --custom-primary: #353535;
+    --custom-secondary: #1e1e1e;
     --custom-black: #1e1e1e;
     
     --background: 0 0% 100%;
@@ -109,12 +109,11 @@
   }
 }
 
-/* Direct CSS custom properties for accessing in non-Tailwind contexts */
-:root {
+/* :root {
   --color-primary: #123524;
   --color-secondary: #1e583c;
   --color-black: #1e1e1e;
-}
+} */
 
 /* third-party libraries CSS */
 

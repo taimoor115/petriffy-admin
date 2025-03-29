@@ -3,6 +3,7 @@ import { Button } from "../../common";
 import { useModal } from "../../context/modal";
 import { COMMUNITY_COLUMN } from "./column";
 import TableLayout from "../../components/layouts/TableLayout";
+import { EditCommunity, WarningModal } from "../../components";
 
 const sampleData = [
   {
@@ -67,14 +68,14 @@ const Community = () => {
 
   const openEditModal = useCallback(
     (id) => {
-      openModal(<div>Edit Modal open</div>);
+      openModal(<EditCommunity />);
     },
     [openModal]
   );
 
   const openWarningModal = useCallback(
     (id) => {
-      openModal(<div>Warning Modal open</div>);
+      openModal(<WarningModal />);
     },
     [openModal]
   );
