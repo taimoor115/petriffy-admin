@@ -1,9 +1,10 @@
 import { useCallback, useState } from "react";
-import { Button, GenericTable, Heading, Modal } from "../../common";
-import { Pagination, RegisterDoctor } from "../../components";
+import { Button } from "../../common";
+import { RegisterDoctor } from "../../components";
 import { useModal } from "../../context/modal";
 import { DOCTOR_COLUMN } from "./column";
 import { doctorData } from "../../constant/doctor";
+import TableLayout from "../../components/layouts/TableLayout";
 
 const Doctors = () => {
   const { openModal } = useModal();
@@ -21,24 +22,25 @@ const Doctors = () => {
     }));
   };
 
-  // useEffect(() => {
-  //   if (question?.pageNo && question.pageNo !== queryParams.pageNo) {
-  //     setQueryParams((prev) => ({
-  //       ...prev,
-  //       pageNo: question.pageNo,
-  //     }));
-  //   }
-  // }, [question?.pageNo]);
+  const handleSearch = (searchText) => {
+    setQueryParams((prev) => ({
+      ...prev,
+      search: searchText,
+      page: 1, // Reset to first page on new search
+    }));
+  };
 
   const handleOpenModal = useCallback(() => {
     openModal(<RegisterDoctor />);
   }, [openModal]);
+
   const openEditModal = useCallback(
     (id) => {
       openModal(<div>Edit Modal open</div>);
     },
     [openModal]
   );
+
   const openWarningModal = useCallback(
     (id) => {
       openModal(<div>Warning Modal open</div>);
@@ -47,36 +49,27 @@ const Doctors = () => {
   );
 
   const DOCTOR_COLUMNS = DOCTOR_COLUMN(openWarningModal, openEditModal);
+
+  const actionButton = (
+    <Button
+      className="px-3 py-2 text-sm font-medium text-white rounded-md bg-custom_secondary hover:bg-custom_secondary"
+      text="Create Doctor"
+      onClick={handleOpenModal}
+    />
+  );
+
   return (
-    <section>
-      <div className="flex items-center justify-between ">
-        <Heading heading="Doctors" />
-        <Button
-          className="px-3 py-2 text-sm font-medium text-white rounded-md bg-custom_secondary hover:bg-custom_secondary"
-          text="Create Community"
-          onClick={handleOpenModal}
-        />
-      </div>
-
-      <input
-        type="text"
-        placeholder="Search"
-        className="w-full px-5 py-2 mt-4 border rounded-md border-gray-4 shadow-4 focus:outline-none "
-      />
-
-      <GenericTable
-        columns={DOCTOR_COLUMNS}
-        loading={false}
-        data={doctorData}
-      />
-
-      <Pagination
-        currentPage={queryParams.page}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
-      <Modal />
-    </section>
+    <TableLayout
+      title="Doctors"
+      actionButton={actionButton}
+      columns={DOCTOR_COLUMNS}
+      data={doctorData}
+      loading={false}
+      queryParams={queryParams}
+      totalPages={totalPages}
+      onPageChange={handlePageChange}
+      onSearch={handleSearch}
+    />
   );
 };
 

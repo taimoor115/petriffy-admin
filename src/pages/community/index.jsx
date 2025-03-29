@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
-import { Button, GenericTable, Heading, Modal } from "../../common";
-import { Pagination, RegisterDoctor } from "../../components";
-import { doctorData } from "../../constant/doctor";
+import { Button } from "../../common";
 import { useModal } from "../../context/modal";
 import { COMMUNITY_COLUMN } from "./column";
+import TableLayout from "../../components/layouts/TableLayout";
+
 const sampleData = [
   {
     _id: "1",
@@ -36,6 +36,7 @@ const sampleData = [
     createdAt: "2023-05-25",
   },
 ];
+
 const Community = () => {
   const { openModal } = useModal();
   const [queryParams, setQueryParams] = useState({
@@ -52,24 +53,25 @@ const Community = () => {
     }));
   };
 
-  // useEffect(() => {
-  //   if (question?.pageNo && question.pageNo !== queryParams.pageNo) {
-  //     setQueryParams((prev) => ({
-  //       ...prev,
-  //       pageNo: question.pageNo,
-  //     }));
-  //   }
-  // }, [question?.pageNo]);
+  const handleSearch = (searchText) => {
+    setQueryParams((prev) => ({
+      ...prev,
+      search: searchText,
+      page: 1, // Reset to first page on new search
+    }));
+  };
 
   const handleOpenModal = useCallback(() => {
     openModal(<div>Add community</div>);
   }, [openModal]);
+
   const openEditModal = useCallback(
     (id) => {
       openModal(<div>Edit Modal open</div>);
     },
     [openModal]
   );
+
   const openWarningModal = useCallback(
     (id) => {
       openModal(<div>Warning Modal open</div>);
@@ -78,36 +80,27 @@ const Community = () => {
   );
 
   const COMMUNITY_COLUMNS = COMMUNITY_COLUMN(openWarningModal, openEditModal);
+
+  const actionButton = (
+    <Button
+      className="px-3 py-2 text-sm font-medium text-white rounded-md bg-custom_secondary"
+      text="Create community"
+      onClick={handleOpenModal}
+    />
+  );
+
   return (
-    <section>
-      <div className="flex items-center justify-between ">
-        <Heading heading="Communities" />
-        <Button
-          className="px-3 py-2 text-sm font-medium text-white rounded-md bg-custom_secondary "
-          text="Create community"
-          onClick={handleOpenModal}
-        />
-      </div>
-
-      <input
-        type="text"
-        placeholder="Search"
-        className="w-full px-5 py-2 mt-4 border rounded-md border-gray-4 shadow-4 focus:outline-none "
-      />
-
-      <GenericTable
-        columns={COMMUNITY_COLUMNS}
-        loading={false}
-        data={sampleData}
-      />
-
-      <Pagination
-        currentPage={queryParams.page}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
-      <Modal />
-    </section>
+    <TableLayout
+      title="Communities"
+      actionButton={actionButton}
+      columns={COMMUNITY_COLUMNS}
+      data={sampleData}
+      loading={false}
+      queryParams={queryParams}
+      totalPages={totalPages}
+      onPageChange={handlePageChange}
+      onSearch={handleSearch}
+    />
   );
 };
 
