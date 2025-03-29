@@ -1,34 +1,28 @@
-import { DeleteSvg, EditSvg } from "../../assets/svgs";
+import { Link } from "react-router-dom";
+import { DeleteSvg, EditSvg, EyeSvg } from "../../assets/svgs";
 import { Button } from "../../common";
 
-export const DOCTOR_COLUMN = (openWarningModal, openEditModal) => [
+export const COMMUNITY_COLUMN = (openWarningModal, openEditModal) => [
   {
     key: "name",
     label: "Name",
   },
   {
-    key: "email",
-    label: "Email",
+    key: "members",
+    label: "Total Members",
   },
   {
-    key: "experience",
-    label: "Experience",
+    key: "createdAt",
+    label: "Created At",
   },
-  {
-    key: "specialization",
-    label: "Specialization",
-  },
-  {
-    key: "phoneNumber",
-    label: "Phone Number",
-  },
+
   {
     key: "action",
     label: "Action",
     render: (row) => {
       return (
         <div className="flex w-full">
-          <div className="flex justify-start w-20 ">
+          <div className="flex justify-start w-20">
             <Button
               onClick={() => openEditModal(row._id)}
               className="font-medium cursor-pointer text-[#282F5A] p-2 rounded-full hover:bg-[#282F5A1F] transition-all duration-300"
@@ -41,6 +35,11 @@ export const DOCTOR_COLUMN = (openWarningModal, openEditModal) => [
             >
               <DeleteSvg />
             </Button>
+            <Link to={`/community/${row._id}`}>
+              <Button className="p-2 font-medium text-blue-600 transition-all duration-300 rounded-full cursor-pointer hover:bg-blue-100">
+                <EyeSvg />
+              </Button>
+            </Link>
           </div>
         </div>
       );
