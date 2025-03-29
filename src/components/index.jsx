@@ -6,6 +6,7 @@ import RegisterDoctor from "./modals/register-doctor";
 import Checkbox from "./form-components/checkbox";
 import TableSkeleton from "./skeleton";
 import Pagination from "./pagination";
+import WarningModal from "./modals/warning";
 export {
   Sidebar,
   InputField,
@@ -15,4 +16,5 @@ export {
   Checkbox,
   TableSkeleton,
   Pagination,
+  WarningModal,
 };
