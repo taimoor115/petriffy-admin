@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import TableLayout from "../../components/layouts/TableLayout";
 import { POSTS_COLUMN } from "./column";
 import { useModal } from "../../context/modal";
+import { WarningModal } from "../../components";
 
 export const dummyData = [
   {
@@ -61,7 +62,7 @@ const Posts = () => {
 
   const openWarningModal = useCallback(
     (id) => {
-      openModal(<div>Warning Modal open</div>);
+      openModal(<WarningModal />);
     },
     [openModal]
   );
