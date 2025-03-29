@@ -34,7 +34,6 @@ export const dummyData = [
     city: "City 3",
     status: "Published",
   },
-  // Add more dummy posts as needed
 ];
 const Posts = () => {
   const { openModal } = useModal();
