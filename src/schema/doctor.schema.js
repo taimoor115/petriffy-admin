@@ -23,3 +23,14 @@ export const DoctorSchema = Yup.object().shape({
   specialization: Yup.string().required("Specialization is required"),
   avatar: Yup.mixed().required("Profile picture is required"),
 });
+
+
+
+
+  export const EditDoctorSchema = Yup.object({
+    email: Yup.string().email("Invalid email format").required("Required"),
+    experience: Yup.number()
+      .typeError("Must be a number")
+      .required("Required")
+      .positive("Must be a positive number"),
+  });

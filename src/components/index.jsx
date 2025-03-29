@@ -7,6 +7,7 @@ import Checkbox from "./form-components/checkbox";
 import TableSkeleton from "./skeleton";
 import Pagination from "./pagination";
 import WarningModal from "./modals/warning";
+import EditDoctor from "./modals/edit-doctor";
 export {
   Sidebar,
   InputField,
@@ -17,4 +18,5 @@ export {
   TableSkeleton,
   Pagination,
   WarningModal,
+  EditDoctor,
 };

@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { Button } from "../../common";
-import { RegisterDoctor, WarningModal } from "../../components";
+import { EditDoctor, RegisterDoctor, WarningModal } from "../../components";
 import { useModal } from "../../context/modal";
 import { DOCTOR_COLUMN } from "./column";
 import { doctorData } from "../../constant/doctor";
@@ -36,7 +36,7 @@ const Doctors = () => {
 
   const openEditModal = useCallback(
     (id) => {
-      openModal(<div>Edit Modal open</div>);
+      openModal(<EditDoctor />);
     },
     [openModal]
   );

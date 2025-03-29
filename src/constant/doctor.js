@@ -93,3 +93,18 @@ export const doctorData = [
   },
 ];
 
+
+  export const editDoctorFields = [
+    {
+      label: "Email",
+      name: "email",
+      type: "email",
+      placeholder: "Enter your email",
+    },
+    {
+      label: "Experience (in years)",
+      name: "experience",
+      type: "number",
+      placeholder: "Enter your experience",
+    },
+  ];
