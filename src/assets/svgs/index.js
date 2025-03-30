@@ -11,6 +11,7 @@ import BlogSvg from "./blog";
 import PostSvg from "./posts";
 import DeleteSvg from "./delete";
 import EditSvg from "./edit";
+import LogoutSvg from "./logout";
 export {
   HideSvg,
   EyeSvg,
@@ -25,4 +26,5 @@ export {
   PostSvg,
   DeleteSvg,
   EditSvg,
+  LogoutSvg,
 };
