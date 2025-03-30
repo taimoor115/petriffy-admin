@@ -7,6 +7,7 @@ export const Doctors = lazy(() => import("../pages/doctor"));
 export const Blogs = lazy(() => import("../pages/blogs"));
 export const Users = lazy(() => import("../pages/users"));
 export const Community = lazy(() => import("../pages/community"));
+export const CommunityDetail = lazy(() => import("../pages/community-detail"));
 export const Posts = lazy(() => import("../pages/posts"));
 export const Profile = lazy(() => import("../pages/profile"));
 export const NotFound = lazy(() => import("../pages/error/not-found"));

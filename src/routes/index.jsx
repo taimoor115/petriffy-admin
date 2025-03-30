@@ -3,6 +3,7 @@ import {
   Blogs,
   ClientError,
   Community,
+  CommunityDetail,
   Doctors,
   Home,
   Login,
@@ -22,10 +23,14 @@ const routes = [
   { path: "/", element: <Home /> },
   { path: "/profile", element: <Profile /> },
   { path: "/doctors", element: <Doctors /> },
-  { path: "/communities", element: <Community /> },
+  {
+    path: "/communities",
+    element: <Community />,
+  },
   { path: "/blogs", element: <Blogs /> },
   { path: "/posts", element: <Posts /> },
   { path: "/users", element: <Users /> },
+  { path: "/communities/:communityId", element: <CommunityDetail /> },
 ];
 
 const router = createBrowserRouter([
