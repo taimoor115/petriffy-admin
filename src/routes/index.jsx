@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import {
+  BlogDetail,
   Blogs,
   ClientError,
   Community,
@@ -31,6 +32,7 @@ const routes = [
   { path: "/posts", element: <Posts /> },
   { path: "/users", element: <Users /> },
   { path: "/communities/:communityId", element: <CommunityDetail /> },
+  { path: "/blogs/:id", element: <BlogDetail /> },
 ];
 
 const router = createBrowserRouter([

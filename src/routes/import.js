@@ -10,4 +10,5 @@ export const Community = lazy(() => import("../pages/community"));
 export const CommunityDetail = lazy(() => import("../pages/community-detail"));
 export const Posts = lazy(() => import("../pages/posts"));
 export const Profile = lazy(() => import("../pages/profile"));
+export const BlogDetail = lazy(() => import("../pages/blogs-detail"));
 export const NotFound = lazy(() => import("../pages/error/not-found"));
