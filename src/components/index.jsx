@@ -9,6 +9,7 @@ import Pagination from "./pagination";
 import WarningModal from "./modals/warning";
 import EditDoctor from "./modals/edit-doctor";
 import EditCommunity from "./modals/edit-community";
+import Logout from "./modals/logout";
 export {
   Sidebar,
   InputField,
@@ -21,4 +22,5 @@ export {
   WarningModal,
   EditDoctor,
   EditCommunity,
+  Logout,
 };

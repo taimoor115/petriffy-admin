@@ -1,10 +1,19 @@
 import React from "react";
 import { LogoutSvg } from "../../assets/svgs";
+import { useModal } from "../../context/modal";
+import { useLogout } from "../../hooks";
+import { Button } from "../../common";
 
 const Logout = () => {
+  const { logout, isLoading } = useLogout();
+  const { closeModal } = useModal();
+  const handleLogout = async () => {
+    await logout({});
+    closeModal();
+  };
   return (
     <div className="flex flex-col items-center py-4">
-      <div className="mb-6 text-center">
+      <div className="flex flex-col items-center justify-center mb-6">
         <LogoutSvg />
         <h3 className="mb-3 text-lg font-bold md:text-2xl text-custom_primary">
           Confirm Logout
@@ -14,20 +23,21 @@ const Logout = () => {
         </p>
       </div>
       <div className="flex gap-4">
-        <button
-          //   onClick={handleLogout}
-          //   disabled={isPending || isLoading}
-          className="px-4 md:px-6 py-2 md:py-2.5 text-sm md:text-base text-white rounded-lg bg-custom_purple hover:bg-purple-700"
+        <Button
+          className="px-4 py-2 mt-4 text-sm font-semibold text-white rounded-md bg-custom_black hover:opacity-70"
+          type="submit"
+          onClick={handleLogout}
+          disabled={isLoading}
         >
-          Yes, Logout
-        </button>
-        <button
-          //   onClick={closeModal}
-          //   disabled={isPending || isLoading}
-          className="px-4 md:px-6 py-2 md:py-2.5 text-sm md:text-base text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
+          Submit
+        </Button>
+        <Button
+          onClick={closeModal}
+          className="px-4 py-2 mt-4 ml-4 text-sm font-semibold text-black border rounded-md border-[#e6e3e3] hover:bg-custom_black hover:text-white"
+          type="button"
         >
           Cancel
-        </button>
+        </Button>
       </div>
     </div>
   );

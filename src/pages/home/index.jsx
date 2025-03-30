@@ -1,12 +1,14 @@
-import { DropdownButton, Heading } from "../../common";
-import { StatisticsCard } from "../../components";
+import { DropdownButton, Heading, Modal } from "../../common";
+import { Logout, StatisticsCard } from "../../components";
 import { cardsData } from "../../constant/home";
+import { useModal } from "../../context/modal";
 import { useLogout } from "../../hooks";
 
 const Home = () => {
-  const { logout, isLoading } = useLogout();
-  const handleLogout = async () => {
-    await logout({});
+  const { openModal } = useModal();
+
+  const handleOpenLogoutModal = () => {
+    openModal(<Logout />);
   };
   const options = [
     {
@@ -15,8 +17,7 @@ const Home = () => {
     },
     {
       title: "Logout",
-      disabled: isLoading,
-      onClick: handleLogout,
+      onClick: handleOpenLogoutModal,
     },
   ];
   return (
@@ -31,6 +32,8 @@ const Home = () => {
           <StatisticsCard key={index} title={item.title} stats={item.count} />
         ))}
       </section>
+
+      <Modal />
     </section>
   );
 };

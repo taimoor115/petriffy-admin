@@ -86,7 +86,7 @@ const Login = () => {
                   type="submit"
                   className="w-full py-3 text-white rounded bg-custom_primary hover:bg-gray-800"
                 >
-                  Login Now
+                  {isLoading ? "Logging in..." : "Login Now"}
                 </Button>
               </Form>
             )}

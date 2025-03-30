@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <ModalProvider>
-          <Toaster duration={2000} position="top-right" />
+          <Toaster duration={2000} position="bottom-right" />
           <App />
         </ModalProvider>
       </AuthProvider>
