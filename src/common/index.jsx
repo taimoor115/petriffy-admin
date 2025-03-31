@@ -5,6 +5,7 @@ import Modal from "./modal";
 import Heading from "./heading";
 import Loader from "./animated-loader/index";
 import GenericTable from "./table";
+import Spinner from "./animated-loader/Spinner";
 export {
   ErrorBoundary,
   Button,
@@ -13,4 +14,5 @@ export {
   Heading,
   Loader,
   GenericTable,
+  Spinner,
 };

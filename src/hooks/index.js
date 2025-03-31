@@ -1,3 +1,4 @@
 import useLogin from "./useLogin";
 import useLogout from "./useLogout";
-export { useLogin, useLogout };
+import useGetAdminInfo from "./useGetAdminInfo";
+export { useLogin, useLogout, useGetAdminInfo };
