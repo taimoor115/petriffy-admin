@@ -4,7 +4,7 @@ import { alternativeImg } from "../../assets/images";
 import { Button, Heading, Spinner } from "../../common";
 import { InputField } from "../../components";
 import { passwordFields } from "../../constant/profile";
-import { useChangeAvatar, useGetAdminInfo } from "../../hooks";
+import { useChangeAvatar, useChangeName, useGetAdminInfo } from "../../hooks";
 import {
   changePasswordSchema,
   nameValidationSchema,
@@ -13,6 +13,7 @@ import {
 const Profile = () => {
   const { data = {}, isLoading: isLoadingProfile = false } = useGetAdminInfo();
   const { changeAvatar, isLoading: isAvatarUpdating } = useChangeAvatar();
+  const { changeName, isLoading: isNameUpdating } = useChangeName();
 
   const { avatar = "", name = "" } = data?.data || {};
 
@@ -38,6 +39,7 @@ const Profile = () => {
   const loadingStates = [
     { isLoading: isLoadingProfile, message: "Fetching profile information..." },
     { isLoading: isAvatarUpdating, message: "Uploading image..." },
+    { isLoading: isNameUpdating, message: "Updating name..." },
   ];
 
   return (
@@ -75,7 +77,7 @@ const Profile = () => {
         }}
         validationSchema={nameValidationSchema}
         onSubmit={(values) => {
-          console.log(values);
+          changeName({ body: { name: values.name } });
         }}
         enableReinitialize={true}
       >
