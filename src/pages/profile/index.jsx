@@ -4,7 +4,12 @@ import { alternativeImg } from "../../assets/images";
 import { Button, Heading, Spinner } from "../../common";
 import { InputField } from "../../components";
 import { passwordFields } from "../../constant/profile";
-import { useChangeAvatar, useChangeName, useGetAdminInfo } from "../../hooks";
+import {
+  useChangeAvatar,
+  useChangeName,
+  useChangePassword,
+  useGetAdminInfo,
+} from "../../hooks";
 import {
   changePasswordSchema,
   nameValidationSchema,
@@ -14,7 +19,7 @@ const Profile = () => {
   const { data = {}, isLoading: isLoadingProfile = false } = useGetAdminInfo();
   const { changeAvatar, isLoading: isAvatarUpdating } = useChangeAvatar();
   const { changeName, isLoading: isNameUpdating } = useChangeName();
-
+  const { changePassword, isLoading: isPasswordUpdating } = useChangePassword();
   const { avatar = "", name = "" } = data?.data || {};
 
   const handleImageChange = useCallback(
@@ -40,6 +45,7 @@ const Profile = () => {
     { isLoading: isLoadingProfile, message: "Fetching profile information..." },
     { isLoading: isAvatarUpdating, message: "Uploading image..." },
     { isLoading: isNameUpdating, message: "Updating name..." },
+    { isLoading: isPasswordUpdating, message: "Updating password..." },
   ];
 
   return (
@@ -95,7 +101,7 @@ const Profile = () => {
               type="submit"
               className="px-3 py-2 mt-4 text-sm font-medium text-white rounded-md bg-custom_primary hover:bg-custom_secondary"
             >
-              Change Name
+              {isNameUpdating ? "Updating..." : "Change Name"}
             </Button>
           </Form>
         )}
@@ -108,8 +114,19 @@ const Profile = () => {
           confirmPassword: "",
         }}
         validationSchema={changePasswordSchema}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={async (values, { resetForm }) => {
+          try {
+            await changePassword({
+              body: {
+                oldPassword: values.oldPassword,
+                newPassword: values.newPassword,
+                confirmPassword: values.confirmPassword,
+              },
+            });
+            resetForm();
+          } catch (error) {
+            console.error(error);
+          }
         }}
       >
         {() => (
@@ -128,7 +145,7 @@ const Profile = () => {
               type="submit"
               className="px-3 py-2 mt-4 text-sm font-medium text-white rounded-md bg-custom_primary hover:bg-custom_secondary"
             >
-              Change Password
+              {isPasswordUpdating ? "Updating..." : "Change Password"}
             </Button>
           </Form>
         )}
