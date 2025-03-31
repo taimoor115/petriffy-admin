@@ -28,10 +28,8 @@ axiosWithToken.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      console.error("Unauthorized: Please log in again.");
-
       Cookies.removeItem("token");
-      window.location.href = "/login";
+      window.location.href = "/auth/login";
     }
     return Promise.reject(error);
   }
