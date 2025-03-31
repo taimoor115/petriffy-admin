@@ -1,4 +1,4 @@
-import { queryClient } from "../main";
+import { queryClient } from "./query-client";
 
 export const invalidateQuery = (keys, options = {}) => {
   const {

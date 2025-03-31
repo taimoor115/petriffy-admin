@@ -41,7 +41,10 @@ const useQueryApi = (endpoint, options = {}) => {
 
   const useGetData = (queryParams = {}, queryOptions = {}) => {
     return useQuery({
-      queryKey: [endpoint, queryParams],
+      queryKey:
+        Object.keys(queryParams).length > 0
+          ? [endpoint, queryParams]
+          : [endpoint],
       queryFn: async () => {
         try {
           const config = createConfig("GET", null, queryParams);
@@ -117,7 +120,6 @@ const useQueryApi = (endpoint, options = {}) => {
     });
   };
 
-  // PATCH request
   const usePatchData = (mutationOptions = {}) => {
     return useMutation({
       mutationFn: async ({ id, body, queryParams = {}, headers = {} }) => {

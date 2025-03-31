@@ -1,13 +1,14 @@
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
 import { Toaster } from "sonner";
+import App from "./App";
 import "./assets/css/satoshi.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./assets/css/style.css";
 import { AuthProvider } from "./context/auth";
 import { ModalProvider } from "./context/modal";
-export const queryClient = new QueryClient();
+import { queryClient } from "./utils/query-client";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <ModalProvider>
           <Toaster duration={2000} position="bottom-right" />
           <App />
+          <ReactQueryDevtools />
         </ModalProvider>
       </AuthProvider>
     </QueryClientProvider>

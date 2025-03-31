@@ -1,32 +1,35 @@
 import { Form, Formik } from "formik";
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback } from "react";
 import { alternativeImg } from "../../assets/images";
 import { Button, Heading, Spinner } from "../../common";
 import { InputField } from "../../components";
 import { passwordFields } from "../../constant/profile";
+import { useChangeAvatar, useGetAdminInfo } from "../../hooks";
 import {
   changePasswordSchema,
   nameValidationSchema,
 } from "../../schema/profile.schema";
-import { useGetAdminInfo } from "../../hooks";
 
 const Profile = () => {
   const { data = {}, isLoading: isLoadingProfile = false } = useGetAdminInfo();
-  const [isLoadingImage, setIsLoadingImage] = useState(false);
+  const { changeAvatar, isLoading: isAvatarUpdating } = useChangeAvatar();
 
   const { avatar = "", name = "" } = data?.data || {};
 
-  const handleImageChange = useCallback((event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setIsLoadingImage(true);
-      // Simulate image upload API call
-      setTimeout(() => {
-        setIsLoadingImage(false);
-        // Handle the actual image change logic here
-      }, 2000);
-    }
-  }, []);
+  const handleImageChange = useCallback(
+    (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64String = reader.result;
+          changeAvatar({ body: { avatar: base64String } });
+        };
+        reader.readAsDataURL(file);
+      }
+    },
+    [changeAvatar]
+  );
 
   const handleButtonClick = useCallback(() => {
     document.getElementById("fileInput").click();
@@ -34,7 +37,7 @@ const Profile = () => {
 
   const loadingStates = [
     { isLoading: isLoadingProfile, message: "Fetching profile information..." },
-    { isLoading: isLoadingImage, message: "Uploading image..." },
+    { isLoading: isAvatarUpdating, message: "Uploading image..." },
   ];
 
   return (
