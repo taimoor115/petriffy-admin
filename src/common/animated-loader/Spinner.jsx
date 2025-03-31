@@ -1,10 +1,8 @@
 import "./index.css";
 
 const Spinner = ({ loadingStates = [] }) => {
-  // Filter to only show loading states that are active
   const activeLoadingStates = loadingStates.filter((state) => state.isLoading);
 
-  // If nothing is loading, don't render the spinner
   if (activeLoadingStates.length === 0) return null;
 
   return (

@@ -12,7 +12,6 @@ import { useGetAdminInfo } from "../../hooks";
 
 const Profile = () => {
   const { data = {}, isLoading: isLoadingProfile = false } = useGetAdminInfo();
-  // Example of another API call (you would replace this with your actual second API call)
   const [isLoadingImage, setIsLoadingImage] = useState(false);
 
   const { avatar = "", name = "" } = data?.data || {};
@@ -33,7 +32,6 @@ const Profile = () => {
     document.getElementById("fileInput").click();
   }, []);
 
-  // Define loading states for the spinner
   const loadingStates = [
     { isLoading: isLoadingProfile, message: "Fetching profile information..." },
     { isLoading: isLoadingImage, message: "Uploading image..." },
