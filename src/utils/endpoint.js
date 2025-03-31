@@ -9,6 +9,9 @@ const endpoint = {
     CHANGE_PASSWORD: "/v1/users/change-password",
     CHANGE_NAME: "/v1/users/update-user-info",
   },
+  STATISTICS: {
+    GET_STATISTICS: "/v1/admin/statistics",
+  },
 };
 
 export default endpoint;

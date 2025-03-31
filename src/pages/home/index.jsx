@@ -1,12 +1,22 @@
-import { DropdownButton, Heading, Modal } from "../../common";
+import { DropdownButton, Heading, Modal, Spinner } from "../../common";
 import { Logout, StatisticsCard } from "../../components";
-import { cardsData } from "../../constant/home";
 import { useModal } from "../../context/modal";
-import { useLogout } from "../../hooks";
+import { useGetStatistics } from "../../hooks";
 
 const Home = () => {
   const { openModal } = useModal();
+  const { data = {}, isLoading: isStatisticsFetching = false } =
+    useGetStatistics();
 
+  const { data: statisitics } = data || {};
+  console.log(statisitics);
+
+  const loadingStates = [
+    {
+      isLoading: isStatisticsFetching,
+      message: "Fetching statistics...",
+    },
+  ];
   const handleOpenLogoutModal = () => {
     openModal(<Logout />);
   };
@@ -20,8 +30,44 @@ const Home = () => {
       onClick: handleOpenLogoutModal,
     },
   ];
+
+  const cardsData = [
+    {
+      title: "Total Users",
+      count: statisitics?.totalUsers || "0",
+    },
+    {
+      title: "Total Doctors",
+      count: statisitics?.totalDoctors || "0",
+    },
+    {
+      title: "Total communities",
+      count: statisitics?.totalCommunities || "0",
+    },
+    {
+      title: "Total blogs",
+      count: statisitics?.totalBlogs || "0",
+    },
+    {
+      title: "Total Free posts",
+      count: statisitics?.totalFreePosts || "0",
+    },
+    {
+      title: "Total Silver posts",
+      count: statisitics?.totalSilverPosts || "0",
+    },
+    {
+      title: "Total Diamond posts",
+      count: statisitics?.totalDiamondPosts || "0",
+    },
+    {
+      title: "Total Posts",
+      count: statisitics?.totalPosts || "0",
+    },
+  ];
   return (
     <section className="container">
+      <Spinner loadingStates={loadingStates} />
       <div className="flex items-center justify-between">
         <Heading heading="Statistics" />
         <DropdownButton title="Admin" options={options} />

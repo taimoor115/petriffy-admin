@@ -4,6 +4,7 @@ import useGetAdminInfo from "./useGetAdminInfo";
 import useChangeAvatar from "./useChangeAvatar";
 import useChangeName from "./useChangeName";
 import useChangePassword from "./useChangePassword";
+import useGetStatistics from "./useGetStatistics";
 export {
   useLogin,
   useLogout,
@@ -11,4 +12,5 @@ export {
   useChangeAvatar,
   useChangeName,
   useChangePassword,
+  useGetStatistics,
 };
