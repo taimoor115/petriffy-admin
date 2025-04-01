@@ -80,7 +80,7 @@ const Pagination = ({
           variant={variant}
           size="icon"
           className={cn(buttonSizeClass, "hidden sm:flex")}
-          disabled={currentPage === 1}
+          disabled={currentPage === 1 || totalPages === 0}
           onClick={() => onPageChange(1)}
           aria-label="Go to first page"
         >
@@ -92,7 +92,7 @@ const Pagination = ({
         variant={variant}
         size="icon"
         className={buttonSizeClass}
-        disabled={currentPage === 1}
+        disabled={currentPage === 1 || totalPages === 0}
         onClick={() => onPageChange(currentPage - 1)}
         aria-label="Go to previous page"
       >
@@ -122,7 +122,7 @@ const Pagination = ({
         variant={variant}
         size="icon"
         className={buttonSizeClass}
-        disabled={currentPage === totalPages}
+        disabled={currentPage === totalPages || totalPages === 0}
         onClick={() => onPageChange(currentPage + 1)}
         aria-label="Go to next page"
       >
@@ -134,7 +134,7 @@ const Pagination = ({
           variant={variant}
           size="icon"
           className={cn(buttonSizeClass, "hidden sm:flex")}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === totalPages || totalPages === 0}
           onClick={() => onPageChange(totalPages)}
           aria-label="Go to last page"
         >
