@@ -44,7 +44,7 @@ const useQueryApi = (endpoint, options = {}) => {
       queryKey:
         Object.keys(queryParams).length > 0
           ? [endpoint, queryParams]
-          : [endpoint, queryParams],
+          : [endpoint],
       queryFn: async () => {
         try {
           const config = createConfig("GET", null, queryParams);
