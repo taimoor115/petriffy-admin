@@ -32,7 +32,7 @@ const routes = [
   { path: "/posts", element: <Posts /> },
   { path: "/users", element: <Users /> },
   { path: "/communities/:communityId", element: <CommunityDetail /> },
-  { path: "/blogs/:id", element: <BlogDetail /> },
+  { path: "/blog-detail", element: <BlogDetail /> },
 ];
 
 const router = createBrowserRouter([

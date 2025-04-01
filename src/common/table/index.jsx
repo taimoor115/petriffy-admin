@@ -35,7 +35,7 @@ const GenericTable = ({ loading = false, data = [], columns = [] }) => {
   const sortedData = getSortedData();
 
   const renderSkeletonRows = () => {
-    return Array(9)
+    return Array(4)
       .fill(null)
       .map((_, index) => (
         <TableRow key={`skeleton-${index}`}>

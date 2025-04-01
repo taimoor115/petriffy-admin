@@ -24,6 +24,21 @@ export const BLOGS_COLUMN = () => [
     label: "Total comments",
   },
   {
+    key: "status",
+    label: "Status",
+    render: (row) => {
+      const statusColor =
+        row.status === "APPROVED" ? "bg-green-500" : "bg-red-500";
+      return (
+        <span
+          className={`inline-block px-2 py-1 text-white ${statusColor} rounded`}
+        >
+          {row.status}
+        </span>
+      );
+    },
+  },
+  {
     key: "createdAt",
     label: "Created At",
     render: (row) => {
@@ -37,7 +52,7 @@ export const BLOGS_COLUMN = () => [
       return (
         <div className="flex w-full">
           <div className="flex justify-start w-20">
-            <Link to={`/blogs/${row._id}`} state={{ blog: row }}>
+            <Link to={`/blog-detail`} state={{ blog: row }}>
               <Button className="p-2 font-medium text-blue-600 transition-all duration-300 rounded-full cursor-pointer hover:bg-blue-100">
                 <EyeSvg />
               </Button>

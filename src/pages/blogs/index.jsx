@@ -3,32 +3,7 @@ import TableLayout from "../../components/layouts/TableLayout";
 import { BLOGS_COLUMN } from "./column";
 import { useGetBlogs } from "../../hooks";
 
-const DUMMY_BLOGS_DATA = [
-  {
-    _id: "1",
-    title: "First Blog Post",
-    author: "Author One",
-    likes: 10,
-    comments: 2,
-    createdAt: "2023-01-01",
-  },
-  {
-    _id: "2",
-    title: "Second Blog Post",
-    author: "Author Two",
-    likes: 20,
-    comments: 5,
-    createdAt: "2023-02-01",
-  },
-  {
-    _id: "3",
-    title: "Third Blog Post",
-    author: "Author Three",
-    likes: 15,
-    comments: 3,
-    createdAt: "2023-03-01",
-  },
-];
+
 const Blogs = () => {
   const [queryParams, setQueryParams] = useState({
     page: 1,
@@ -41,7 +16,6 @@ const Blogs = () => {
   const { blogs = [], pagination = {} } = data?.data || {};
 
   const { currentPage, pages: totalPages } = pagination || {};
-  console.log(blogs, "--blogs", pagination);
 
   useEffect(() => {
     if (currentPage && currentPage !== queryParams.page) {
@@ -74,7 +48,7 @@ const Blogs = () => {
       title="Blogs"
       columns={BLOGS_COLUMNS}
       data={blogs}
-      loading={false}
+      loading={isBlogGetting}
       queryParams={queryParams}
       totalPages={totalPages}
       onPageChange={handlePageChange}
