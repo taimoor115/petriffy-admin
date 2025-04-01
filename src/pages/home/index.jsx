@@ -9,7 +9,6 @@ const Home = () => {
     useGetStatistics();
 
   const { data: statisitics } = data || {};
-  console.log(statisitics);
 
   const loadingStates = [
     {

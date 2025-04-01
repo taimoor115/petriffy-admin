@@ -3,7 +3,7 @@ import { Button, Spinner } from "../../common";
 import { EditDoctor, RegisterDoctor, WarningModal } from "../../components";
 import TableLayout from "../../components/layouts/TableLayout";
 import { useModal } from "../../context/modal";
-import { useGetDoctors, useRegisterDoctor } from "../../hooks";
+import { useGetDoctors, useRegisterDoctor, useUpdateDoctor } from "../../hooks";
 import { DOCTOR_COLUMN } from "./column";
 
 const Doctors = () => {
@@ -15,12 +15,9 @@ const Doctors = () => {
 
   const { data = {}, isLoading: isDoctorGetting = false } =
     useGetDoctors(queryParams);
-
-  const { isLoading: isDoctorCreating } = useRegisterDoctor();
   const { data: doctors = [], pagination = {} } = data?.data || {};
 
   const { totalPages, currentPage } = pagination;
-  console.log(doctors, pagination);
   useEffect(() => {
     if (currentPage && currentPage !== queryParams.page) {
       setQueryParams((prev) => ({
@@ -31,20 +28,11 @@ const Doctors = () => {
   }, [currentPage]);
 
   const handlePageChange = (page) => {
-    console.log(`Navigating to page ${page}`);
     setQueryParams((prev) => ({
       ...prev,
       page: page,
     }));
   };
-
-  const loadingStates = [
-    {
-      isLoading: isDoctorCreating,
-      message: "Creating doctor...",
-    },
-    {},
-  ];
 
   const handleSearch = (searchText) => {
     setQueryParams((prev) => ({
@@ -59,8 +47,8 @@ const Doctors = () => {
   }, [openModal]);
 
   const openEditModal = useCallback(
-    (id) => {
-      openModal(<EditDoctor />);
+    (data) => {
+      openModal(<EditDoctor data={data} />);
     },
     [openModal]
   );
@@ -84,7 +72,6 @@ const Doctors = () => {
 
   return (
     <>
-      <Spinner loadingStates={loadingStates} />
       <TableLayout
         title="Doctors"
         actionButton={actionButton}

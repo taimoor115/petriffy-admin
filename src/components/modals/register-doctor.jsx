@@ -54,8 +54,7 @@ const RegisterDoctor = React.memo(() => {
   const handleSubmit = useCallback(
     async (values, { setSubmitting, resetForm }) => {
       try {
-        const res = await createDoctor({ body: values });
-        console.log(res);
+      await createDoctor({ body: values });
         toast.success("Registration submitted successfully");
         resetForm();
         setAvatarPreview(null);

@@ -1,9 +1,9 @@
 import * as Yup from "yup";
 
-const phoneRegExp = /^(03[0-9]{2})[0-9]{7}$/;
+const phoneRegExp = /^92\d{10}$/;
+const nameRegExp = /^Dr\.\s.+/;
 
 export const DoctorSchema = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
@@ -13,27 +13,47 @@ export const DoctorSchema = Yup.object().shape({
     )
     .required("Password is required"),
   phoneNumber: Yup.string()
+    .trim()
     .matches(
       phoneRegExp,
-      "Phone number must be a valid Pakistani number starting with 03"
+      "Phone number must be a valid Pakistani number starting with 92"
     )
     .required("Phone number is required"),
+  name: Yup.string()
+    .matches(
+      nameRegExp,
+      "Name must start with 'Dr.' followed by a space and the name"
+    )
+    .required("Name is required"),
   city: Yup.string().required("City is required"),
+  specialization: Yup.string().required("Specialization is required"),
   experience: Yup.number()
     .typeError("Experience must be a number")
     .required("Experience is required")
     .min(1, "Experience cannot be negative"),
-  specialization: Yup.string().required("Specialization is required"),
   avatar: Yup.mixed().required("Profile picture is required"),
 });
 
-
-
-
-  export const EditDoctorSchema = Yup.object({
-    email: Yup.string().email("Invalid email format").required("Required"),
-    experience: Yup.number()
-      .typeError("Must be a number")
-      .required("Required")
-      .positive("Must be a positive number"),
-  });
+export const EditDoctorSchema = Yup.object({
+  email: Yup.string().email("Invalid email format").required("Required"),
+  phoneNumber: Yup.string()
+    .trim()
+    .matches(
+      phoneRegExp,
+      "Phone number must be a valid Pakistani number starting with 92 and have 12 digits"
+    )
+    .required("Phone number is required"),
+  name: Yup.string()
+    .matches(
+      nameRegExp,
+      "Name must start with 'Dr.' followed by a space and the name"
+    )
+    .required("Name is required"),
+  city: Yup.string().required("City is required"),
+  specialization: Yup.string().required("Specialization is required"),
+  experience: Yup.number()
+    .typeError("Experience must be a number")
+    .required("Experience is required")
+    .positive("Experience cannot be negative")
+    .min(1, "Experience cannot be negative"),
+});

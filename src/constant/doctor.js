@@ -96,15 +96,35 @@ export const doctorData = [
 
   export const editDoctorFields = [
     {
+      label: "Full Name",
+      name: "name",
+      type: "text",
+      placeholder: "Dr. John Doe",
+    },
+    {
       label: "Email",
       name: "email",
       type: "email",
-      placeholder: "Enter your email",
+      placeholder: "doctor@example.com",
     },
+
     {
-      label: "Experience (in years)",
+      label: "Phone Number",
+      name: "phoneNumber",
+      type: "tel",
+      placeholder: "+923242324234",
+    },
+    { label: "City", name: "city", type: "text", placeholder: "Lahore" },
+    {
+      label: "Years of Experience",
       name: "experience",
       type: "number",
-      placeholder: "Enter your experience",
+      placeholder: "2",
+    },
+    {
+      label: "Specialization",
+      name: "specialization",
+      type: "text",
+      placeholder: "MBBS, Cardiology, etc.",
     },
   ];

@@ -11,3 +11,14 @@ export const updateQueryCacheData = (keys, updateFn) => {
     return updateFn(oldData);
   });
 };
+
+
+export const updateAllQueryCache = (endpoint, updateFn) => {
+  const matchingQueries = queryClient.getQueriesData({ queryKey: [endpoint] });
+  matchingQueries.forEach(([queryKey, cachedData]) => {
+    if (cachedData) {
+      const updatedData = updateFn(cachedData);
+      queryClient.setQueryData(queryKey, updatedData);
+    }
+  });
+};

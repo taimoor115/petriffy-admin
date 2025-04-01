@@ -8,6 +8,7 @@ import useGetStatistics from "./statistics/useGetStatistics";
 import useGetDoctors from "./doctors/useGetDoctors";
 import useDebounce from "./utils/useDebounce";
 import useRegisterDoctor from "./doctors/useRegisterDoctor";
+import useUpdateDoctor from "./doctors/useUpdateDoctor";
 export {
   useLogin,
   useLogout,
@@ -19,4 +20,5 @@ export {
   useGetDoctors,
   useDebounce,
   useRegisterDoctor,
+  useUpdateDoctor,
 };
