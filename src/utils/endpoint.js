@@ -18,6 +18,10 @@ const endpoint = {
     GET_DOCTOR: "/v1/admin/get-doctors",
     DELETE_DOCTOR: "/v1/admin/delete-user",
   },
+  BLOG: {
+    GET_BLOGS: "/v1/blogs/get-all-blogs",
+    UPDATE_STATUS: "/v1/blogs/update-status",
+  },
 };
 
 export default endpoint;

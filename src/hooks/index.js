@@ -10,6 +10,7 @@ import useDebounce from "./utils/useDebounce";
 import useRegisterDoctor from "./doctors/useRegisterDoctor";
 import useUpdateDoctor from "./doctors/useUpdateDoctor";
 import useDeleteUser from "./doctors/useDeleteDoctor";
+import useGetBlogs from "./blogs/useGetBlogs";
 export {
   useLogin,
   useLogout,
@@ -23,4 +24,5 @@ export {
   useRegisterDoctor,
   useDeleteUser,
   useUpdateDoctor,
+  useGetBlogs,
 };

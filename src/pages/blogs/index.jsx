@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TableLayout from "../../components/layouts/TableLayout";
 import { BLOGS_COLUMN } from "./column";
+import { useGetBlogs } from "../../hooks";
 
 const DUMMY_BLOGS_DATA = [
   {
@@ -33,10 +34,25 @@ const Blogs = () => {
     page: 1,
     search: "",
   });
-  const totalPages = 10;
+
+  const { data = {}, isLoading: isBlogGetting = false } =
+    useGetBlogs(queryParams);
+
+  const { blogs = [], pagination = {} } = data?.data || {};
+
+  const { currentPage, pages: totalPages } = pagination || {};
+  console.log(blogs, "--blogs", pagination);
+
+  useEffect(() => {
+    if (currentPage && currentPage !== queryParams.page) {
+      setQueryParams((prev) => ({
+        ...prev,
+        page: currentPage,
+      }));
+    }
+  }, [currentPage]);
 
   const handlePageChange = (page) => {
-    console.log(`Navigating to page ${page}`);
     setQueryParams((prev) => ({
       ...prev,
       page: page,
@@ -57,7 +73,7 @@ const Blogs = () => {
     <TableLayout
       title="Blogs"
       columns={BLOGS_COLUMNS}
-      data={DUMMY_BLOGS_DATA}
+      data={blogs}
       loading={false}
       queryParams={queryParams}
       totalPages={totalPages}
