@@ -1,5 +1,5 @@
-import endpoint from "../utils/endpoint";
-import useQueryApi from "./useQuery";
+import endpoint from "../../utils/endpoint";
+import useQueryApi from "../useQuery";
 
 const useGetStatistics = () => {
   const { useGetData } = useQueryApi(endpoint.STATISTICS.GET_STATISTICS);

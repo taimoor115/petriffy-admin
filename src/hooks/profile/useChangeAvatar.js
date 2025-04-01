@@ -1,6 +1,6 @@
-import endpoint from "../utils/endpoint";
-import { updateQueryCacheData } from "../utils/getter-setter";
-import useQueryApi from "./useQuery";
+import endpoint from "../../utils/endpoint";
+import { updateQueryCacheData } from "../../utils/getter-setter";
+import useQueryApi from "../useQuery";
 
 const useChangeAvatar = () => {
   const { usePostData } = useQueryApi(endpoint.PROFILE.CHANGE_AVATAR);

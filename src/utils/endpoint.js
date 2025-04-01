@@ -12,6 +12,11 @@ const endpoint = {
   STATISTICS: {
     GET_STATISTICS: "/v1/admin/statistics",
   },
+  DOCTOR: {
+    CREATE_DOCTOR: "/v1/admin/create-doctor",
+    UPDATE_DOCTOR: "/v1/admin/update-doctor",
+    GET_DOCTOR: "/v1/admin/get-doctors",
+  },
 };
 
 export default endpoint;

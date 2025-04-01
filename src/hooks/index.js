@@ -1,10 +1,10 @@
-import useLogin from "./useLogin";
-import useLogout from "./useLogout";
-import useGetAdminInfo from "./useGetAdminInfo";
-import useChangeAvatar from "./useChangeAvatar";
-import useChangeName from "./useChangeName";
-import useChangePassword from "./useChangePassword";
-import useGetStatistics from "./useGetStatistics";
+import useLogin from "./auth/useLogin";
+import useLogout from "./auth/useLogout";
+import useGetAdminInfo from "./profile/useGetAdminInfo";
+import useChangeAvatar from "./profile/useChangeAvatar";
+import useChangeName from "./profile/useChangeName";
+import useChangePassword from "./profile/useChangePassword";
+import useGetStatistics from "./statistics/useGetStatistics";
 export {
   useLogin,
   useLogout,

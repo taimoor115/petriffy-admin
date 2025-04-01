@@ -1,7 +1,7 @@
 import { toast } from "sonner";
-import { useAuth } from "../context/auth";
-import endpoint from "../utils/endpoint";
-import useQueryApi from "./useQuery";
+import { useAuth } from "../../context/auth";
+import endpoint from "../../utils/endpoint";
+import useQueryApi from "../useQuery";
 import { useNavigate } from "react-router-dom";
 
 const useLogin = () => {
