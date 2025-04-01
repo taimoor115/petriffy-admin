@@ -7,9 +7,7 @@ const useRegisterDoctor = () => {
   const { usePostData } = useQueryApi(endpoint.DOCTOR.CREATE_DOCTOR);
   const createDoctor = usePostData({
     onSuccess: () => {
-      invalidateQuery(endpoint.DOCTOR.GET_DOCTOR, {
-        refetchOnInvalidate: true,
-      });
+      invalidateQuery(endpoint.DOCTOR.GET_DOCTOR);
     },
     onError: (error) => {
       toast.error(error);

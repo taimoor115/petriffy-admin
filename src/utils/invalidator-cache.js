@@ -3,7 +3,7 @@ import { queryClient } from "./query-client";
 export const invalidateQuery = (keys, options = {}) => {
   const {
     exact = false,
-    refetchType = "active",
+    refetchType = "none",
     resetStaleTime = true,
     refetchOnInvalidate = false,
     cancelQueries = false,

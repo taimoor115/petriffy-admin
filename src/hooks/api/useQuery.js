@@ -84,9 +84,9 @@ const useQueryApi = (endpoint, options = {}) => {
         }
       },
       onSuccess: (data, variables) => {
-        if (mutationOptions.invalidateQueries !== false) {
-          queryClient.invalidateQueries({ queryKey: [endpoint] });
-        }
+        // if (mutationOptions.invalidateQueries !== false) {
+        //   queryClient.invalidateQueries({ queryKey: [endpoint] });
+        // }
         if (mutationOptions.onSuccess) {
           mutationOptions.onSuccess(data, variables);
         }
