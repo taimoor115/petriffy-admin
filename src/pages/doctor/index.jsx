@@ -1,10 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "../../common";
 import { EditDoctor, RegisterDoctor, WarningModal } from "../../components";
-import { useModal } from "../../context/modal";
-import { DOCTOR_COLUMN } from "./column";
-import { doctorData } from "../../constant/doctor";
 import TableLayout from "../../components/layouts/TableLayout";
+import { useModal } from "../../context/modal";
+import { useGetDoctors } from "../../hooks";
+import { DOCTOR_COLUMN } from "./column";
 
 const Doctors = () => {
   const { openModal } = useModal();
@@ -12,7 +12,21 @@ const Doctors = () => {
     page: 1,
     search: "",
   });
-  const totalPages = 10;
+
+  const { data = {}, isLoading: isDoctorGetting = false } =
+    useGetDoctors(queryParams);
+  const { data: doctors = [], pagination = {} } = data?.data || {};
+
+  const { totalPages, currentPage } = pagination;
+  console.log(doctors, pagination);
+  useEffect(() => {
+    if (currentPage && currentPage !== queryParams.page) {
+      setQueryParams((prev) => ({
+        ...prev,
+        page: currentPage,
+      }));
+    }
+  }, [currentPage]);
 
   const handlePageChange = (page) => {
     console.log(`Navigating to page ${page}`);
@@ -26,7 +40,7 @@ const Doctors = () => {
     setQueryParams((prev) => ({
       ...prev,
       search: searchText,
-      page: 1, // Reset to first page on new search
+      page: 1,
     }));
   };
 
@@ -59,17 +73,19 @@ const Doctors = () => {
   );
 
   return (
-    <TableLayout
-      title="Doctors"
-      actionButton={actionButton}
-      columns={DOCTOR_COLUMNS}
-      data={doctorData}
-      loading={false}
-      queryParams={queryParams}
-      totalPages={totalPages}
-      onPageChange={handlePageChange}
-      onSearch={handleSearch}
-    />
+    <>
+      <TableLayout
+        title="Doctors"
+        actionButton={actionButton}
+        columns={DOCTOR_COLUMNS}
+        data={doctors}
+        loading={isDoctorGetting}
+        queryParams={queryParams}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+        onSearch={handleSearch}
+      />
+    </>
   );
 };
 

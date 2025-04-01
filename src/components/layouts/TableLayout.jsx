@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { GenericTable, Heading, Modal } from "../../common";
 import { Pagination } from "../../components";
+import { useDebounce } from "../../hooks";
 
 const TableLayout = ({
   title,
@@ -13,6 +14,16 @@ const TableLayout = ({
   onPageChange,
   onSearch,
 }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useDebounce(
+    () => {
+      onSearch(searchTerm);
+    },
+    [searchTerm],
+    1000
+  );
+
   return (
     <section>
       <div className="flex items-center justify-between">
@@ -23,8 +34,8 @@ const TableLayout = ({
       <input
         type="text"
         placeholder="Search"
-        value={queryParams?.search || ""}
-        onChange={(e) => onSearch(e.target.value)}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
         className="w-full px-5 py-2 mt-4 border rounded-md border-gray-4 shadow-4 focus:outline-none"
       />
 

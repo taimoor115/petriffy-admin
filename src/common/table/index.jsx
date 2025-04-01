@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "../../components/ui/table";
-import { TableSkeleton } from "../../components";
+import { Skeleton } from "../../components";
 
 const GenericTable = ({ loading = false, data = [], columns = [] }) => {
   const [sortOrder, setSortOrder] = useState("asc");
@@ -35,7 +35,17 @@ const GenericTable = ({ loading = false, data = [], columns = [] }) => {
   const sortedData = getSortedData();
 
   const renderSkeletonRows = () => {
-    return <TableSkeleton />;
+    return Array(9)
+      .fill(null)
+      .map((_, index) => (
+        <TableRow key={`skeleton-${index}`}>
+          {columns.map((_, colIndex) => (
+            <TableCell key={`skeleton-cell-${colIndex}`} className="py-6.5">
+              <Skeleton className="h-4 w-[80%]" />
+            </TableCell>
+          ))}
+        </TableRow>
+      ));
   };
 
   return (

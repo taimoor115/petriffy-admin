@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 import endpoint from "../../utils/endpoint";
-import useQueryApi from "../useQuery";
+import useQueryApi from "../api/useQuery";
 
 const useChangePassword = () => {
   const { usePatchData } = useQueryApi(endpoint.PROFILE.CHANGE_PASSWORD);

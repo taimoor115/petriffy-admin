@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { axiosWithToken, axiosWithoutToken } from "../api";
+import { axiosWithToken, axiosWithoutToken } from "../../api";
 
 const useQueryApi = (endpoint, options = {}) => {
   const {
