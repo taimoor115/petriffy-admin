@@ -1,6 +1,14 @@
+import { useState } from "react";
 import { Button } from "../../common";
 
-const WarningModal = ({ isLoading, onSubmit, onClose }) => {
+const WarningModal = ({ onConfirm, onClose }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleConfirm = async () => {
+    setIsLoading(true);
+    await onConfirm();
+    setIsLoading(false);
+  };
   return (
     <div className="p-6">
       <h2 className="mb-4 text-3xl font-bold text-center text-red-600">
@@ -17,10 +25,9 @@ const WarningModal = ({ isLoading, onSubmit, onClose }) => {
           Cancel
         </Button>
         <Button
-          className={`px-4 py-2 text-white rounded-lg font-semibold transition duration-200 shadow-lg ${
-            isLoading ? "bg-gray-500" : "bg-red-600 hover:bg-red-700"
-          }`}
-          onClick={onSubmit}
+          className={`px-4 py-2 text-white rounded-lg font-semibold transition duration-200 shadow-lg bg-red-600 hover:bg-red-700
+          `}
+          onClick={handleConfirm}
           disabled={isLoading}
         >
           {isLoading ? "Loading..." : "Proceed"}

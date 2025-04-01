@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { Button, Spinner } from "../../common";
+import { Button } from "../../common";
 import { EditDoctor, RegisterDoctor, WarningModal } from "../../components";
 import TableLayout from "../../components/layouts/TableLayout";
 import { useModal } from "../../context/modal";
-import { useGetDoctors, useRegisterDoctor, useUpdateDoctor } from "../../hooks";
+import { useDeleteUser, useGetDoctors } from "../../hooks";
 import { DOCTOR_COLUMN } from "./column";
 
 const Doctors = () => {
-  const { openModal } = useModal();
   const [queryParams, setQueryParams] = useState({
     page: 1,
     search: "",
@@ -15,9 +14,12 @@ const Doctors = () => {
 
   const { data = {}, isLoading: isDoctorGetting = false } =
     useGetDoctors(queryParams);
-  const { data: doctors = [], pagination = {} } = data?.data || {};
+  const { deleteDoctor, isLoading: isDeleting } = useDeleteUser();
+  const { openModal, closeModal: onClose } = useModal();
 
-  const { totalPages, currentPage } = pagination;
+  const { data: doctors = [], pagination = {} } = data?.data || {};
+  const { totalPages, currentPage } = pagination || {};
+
   useEffect(() => {
     if (currentPage && currentPage !== queryParams.page) {
       setQueryParams((prev) => ({
@@ -53,9 +55,24 @@ const Doctors = () => {
     [openModal]
   );
 
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoctor(id, {});
+      onClose();
+    } catch (error) {
+      console.error("Error deleting doctor:", error);
+    }
+  };
   const openWarningModal = useCallback(
     (id) => {
-      openModal(<WarningModal />);
+      openModal(
+        <WarningModal
+          key={isDeleting}
+          isLoading={isDeleting}
+          onConfirm={() => handleDelete(id)}
+          onClose={onClose}
+        />
+      );
     },
     [openModal]
   );

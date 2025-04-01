@@ -9,6 +9,7 @@ import useGetDoctors from "./doctors/useGetDoctors";
 import useDebounce from "./utils/useDebounce";
 import useRegisterDoctor from "./doctors/useRegisterDoctor";
 import useUpdateDoctor from "./doctors/useUpdateDoctor";
+import useDeleteUser from "./doctors/useDeleteDoctor";
 export {
   useLogin,
   useLogout,
@@ -20,5 +21,6 @@ export {
   useGetDoctors,
   useDebounce,
   useRegisterDoctor,
+  useDeleteUser,
   useUpdateDoctor,
 };

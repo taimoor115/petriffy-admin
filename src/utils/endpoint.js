@@ -16,6 +16,7 @@ const endpoint = {
     CREATE_DOCTOR: "/v1/admin/create-doctor",
     UPDATE_DOCTOR: "/v1/admin/update-doctor",
     GET_DOCTOR: "/v1/admin/get-doctors",
+    DELETE_DOCTOR: "/v1/admin/delete-user",
   },
 };
 

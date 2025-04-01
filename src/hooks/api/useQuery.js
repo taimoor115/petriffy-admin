@@ -109,9 +109,6 @@ const useQueryApi = (endpoint, options = {}) => {
         }
       },
       onSuccess: (data, variables) => {
-        // if (mutationOptions.invalidateQueries !== false) {
-        //   queryClient.invalidateQueries({ queryKey: [endpoint] });
-        // }
         if (mutationOptions.onSuccess) {
           mutationOptions.onSuccess(data, variables);
         }
@@ -120,7 +117,6 @@ const useQueryApi = (endpoint, options = {}) => {
     });
   };
 
-  // PATCH request
   const usePatchData = (mutationOptions = {}) => {
     return useMutation({
       mutationFn: async ({ id, body, queryParams = {}, headers = {} }) => {
@@ -128,6 +124,21 @@ const useQueryApi = (endpoint, options = {}) => {
           const url = id ? `${endpoint}/${id}` : endpoint;
           const config = createConfig("PATCH", body, queryParams, headers);
           config.url = url;
+
+          if (Object.keys(queryParams).length) {
+            config.params = queryParams;
+          }
+
+          if (
+            !body &&
+            !Object.keys(queryParams).length &&
+            !Object.keys(headers).length
+          ) {
+            config.data = undefined;
+            config.params = undefined;
+            config.headers = undefined;
+          }
+
           const response = await axiosInstance(config);
           return response.data;
         } catch (err) {
