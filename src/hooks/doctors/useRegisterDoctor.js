@@ -1,25 +1,26 @@
+import { toast } from "sonner";
 import endpoint from "../../utils/endpoint";
-import { updateQueryCacheData } from "../../utils/getter-setter";
+import { invalidateQuery } from "../../utils/invalidator-cache";
 import useQueryApi from "../api/useQuery";
 
-const useChangeAvatar = () => {
-  const { usePostData } = useQueryApi(endpoint.PROFILE.CHANGE_AVATAR);
-  const changeAvatarMutation = usePostData({
-    onSuccess: (data) => {
-      updateQueryCacheData(endpoint.PROFILE.ADMIN_INFO, (oldData) => {
-        return {
-          ...oldData,
-          data: { ...oldData.data, avatar: data.data.url },
-        };
+const useRegisterDoctor = () => {
+  const { usePostData } = useQueryApi(endpoint.DOCTOR.CREATE_DOCTOR);
+  const createDoctor = usePostData({
+    onSuccess: () => {
+      invalidateQuery(endpoint.DOCTOR.GET_DOCTOR, {
+        refetchOnInvalidate: true,
       });
+    },
+    onError: (error) => {
+      toast.error(error);
     },
   });
 
   return {
-    changeAvatar: changeAvatarMutation.mutate,
-    isLoading: changeAvatarMutation.isPending,
-    error: changeAvatarMutation.error,
+    createDoctor: createDoctor.mutateAsync,
+    isLoading: createDoctor.isPending,
+    error: createDoctor.error,
   };
 };
 
-export default useChangeAvatar;
+export default useRegisterDoctor;

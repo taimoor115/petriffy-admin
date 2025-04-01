@@ -7,6 +7,7 @@ import useChangePassword from "./profile/useChangePassword";
 import useGetStatistics from "./statistics/useGetStatistics";
 import useGetDoctors from "./doctors/useGetDoctors";
 import useDebounce from "./utils/useDebounce";
+import useRegisterDoctor from "./doctors/useRegisterDoctor";
 export {
   useLogin,
   useLogout,
@@ -17,4 +18,5 @@ export {
   useGetStatistics,
   useGetDoctors,
   useDebounce,
+  useRegisterDoctor,
 };

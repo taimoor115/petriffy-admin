@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { Button } from "../../common";
+import { Button, Spinner } from "../../common";
 import { EditDoctor, RegisterDoctor, WarningModal } from "../../components";
 import TableLayout from "../../components/layouts/TableLayout";
 import { useModal } from "../../context/modal";
-import { useGetDoctors } from "../../hooks";
+import { useGetDoctors, useRegisterDoctor } from "../../hooks";
 import { DOCTOR_COLUMN } from "./column";
 
 const Doctors = () => {
@@ -15,6 +15,8 @@ const Doctors = () => {
 
   const { data = {}, isLoading: isDoctorGetting = false } =
     useGetDoctors(queryParams);
+
+  const { isLoading: isDoctorCreating } = useRegisterDoctor();
   const { data: doctors = [], pagination = {} } = data?.data || {};
 
   const { totalPages, currentPage } = pagination;
@@ -35,6 +37,14 @@ const Doctors = () => {
       page: page,
     }));
   };
+
+  const loadingStates = [
+    {
+      isLoading: isDoctorCreating,
+      message: "Creating doctor...",
+    },
+    {},
+  ];
 
   const handleSearch = (searchText) => {
     setQueryParams((prev) => ({
@@ -74,6 +84,7 @@ const Doctors = () => {
 
   return (
     <>
+      <Spinner loadingStates={loadingStates} />
       <TableLayout
         title="Doctors"
         actionButton={actionButton}

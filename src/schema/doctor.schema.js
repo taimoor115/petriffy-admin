@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-// const phoneRegExp = /^[0-9]{10,15}$/;
+const phoneRegExp = /^(03[0-9]{2})[0-9]{7}$/;
 
 export const DoctorSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -13,13 +13,16 @@ export const DoctorSchema = Yup.object().shape({
     )
     .required("Password is required"),
   phoneNumber: Yup.string()
-    // .matches(phoneRegExp, "Phone number is not valid")
+    .matches(
+      phoneRegExp,
+      "Phone number must be a valid Pakistani number starting with 03"
+    )
     .required("Phone number is required"),
   city: Yup.string().required("City is required"),
   experience: Yup.number()
     .typeError("Experience must be a number")
     .required("Experience is required")
-    .min(0, "Experience cannot be negative"),
+    .min(1, "Experience cannot be negative"),
   specialization: Yup.string().required("Specialization is required"),
   avatar: Yup.mixed().required("Profile picture is required"),
 });

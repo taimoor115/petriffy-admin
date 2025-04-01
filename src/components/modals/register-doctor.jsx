@@ -9,6 +9,7 @@ import {
 } from "../../constant/doctor";
 import { DoctorSchema } from "../../schema/doctor.schema";
 import { useModal } from "../../context/modal";
+import { useRegisterDoctor } from "../../hooks";
 
 const AvatarUpload = ({ avatarPreview, handleFileChange }) => (
   <div className="space-y-2">
@@ -45,26 +46,27 @@ const AvatarUpload = ({ avatarPreview, handleFileChange }) => (
   </div>
 );
 
-const RegisterDoctor = React.memo(({ onSubmit }) => {
+const RegisterDoctor = React.memo(() => {
   const [avatarPreview, setAvatarPreview] = useState(null);
+  const { closeModal } = useModal();
   const { closeModal: onCancel } = useModal();
-
+  const { createDoctor } = useRegisterDoctor();
   const handleSubmit = useCallback(
-    (values, { setSubmitting, resetForm }) => {
+    async (values, { setSubmitting, resetForm }) => {
       try {
-        // onSubmit(values);
-        console.log(values);
+        const res = await createDoctor({ body: values });
+        console.log(res);
         toast.success("Registration submitted successfully");
         resetForm();
         setAvatarPreview(null);
+        closeModal();
       } catch (error) {
-        toast.error("An error occurred during registration");
         console.error("Registration error:", error);
       } finally {
         setSubmitting(false);
       }
     },
-    [onSubmit]
+    []
   );
 
   const handleFileChange = (event, setFieldValue) => {
@@ -125,7 +127,7 @@ const RegisterDoctor = React.memo(({ onSubmit }) => {
                 type="submit"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Submitting..." : "Register"}
+                {isSubmitting ? "Creating..." : "Create"}
               </Button>
             </div>
           </Form>
