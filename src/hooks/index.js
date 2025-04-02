@@ -11,6 +11,7 @@ import useRegisterDoctor from "./doctors/useRegisterDoctor";
 import useUpdateDoctor from "./doctors/useUpdateDoctor";
 import useDeleteUser from "./doctors/useDeleteDoctor";
 import useGetBlogs from "./blogs/useGetBlogs";
+import useUpdateStatus from "./blogs/useUpdateStatus";
 export {
   useLogin,
   useLogout,
@@ -25,4 +26,5 @@ export {
   useDeleteUser,
   useUpdateDoctor,
   useGetBlogs,
+  useUpdateStatus,
 };
