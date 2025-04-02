@@ -16,3 +16,12 @@ export const changePasswordSchema = Yup.object().shape({
 export const nameValidationSchema = Yup.object({
   name: Yup.string().required("Name is required.").min(3),
 });
+
+
+export const COMMUNITY_SCHEMA = Yup.object().shape({
+  name: Yup.string()
+    .min(3, "Name must be at least 3 characters")
+    .required("Name is required"),
+  description: Yup.string().required("Description is required"),
+  image: Yup.string().required("Image is required"),
+});

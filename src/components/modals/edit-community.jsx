@@ -9,7 +9,6 @@ const EditCommunity = ({ data = {} }) => {
 
   const handleSubmit = (values) => {
     console.log(values);
-    // Add your submit logic here (e.g., API call)
   };
 
   return (
