@@ -11,6 +11,7 @@ const InputField = ({
   showPasswordToggle = false,
   onTogglePasswordVisibility,
   isPasswordVisible,
+  as = "input",
 }) => {
   return (
     <div className="space-y-1">
@@ -25,7 +26,9 @@ const InputField = ({
       <div className="relative">
         <Field
           id={name}
+          as={as}
           name={name}
+          rows={5}
           type={showPasswordToggle && isPasswordVisible ? "text" : type}
           placeholder={placeholder}
           className={`w-full px-3 py-2 placeholder:text-[#929292] placeholder:text-sm border rounded-[10.45px] focus:border-transparent border-gray-6 focus:outline-none focus:ring-1 focus:ring-custom_primary ${className}`}

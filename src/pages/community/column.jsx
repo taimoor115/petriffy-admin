@@ -8,7 +8,7 @@ export const COMMUNITY_COLUMN = (openWarningModal, openEditModal) => [
     label: "Name",
   },
   {
-    key: "members",
+    key: "membersCount",
     label: "Total Members",
   },
   {
@@ -24,7 +24,7 @@ export const COMMUNITY_COLUMN = (openWarningModal, openEditModal) => [
         <div className="flex w-full">
           <div className="flex justify-start">
             <Button
-              onClick={() => openEditModal(row._id)}
+              onClick={() => openEditModal(row)}
               className="font-medium p-2 cursor-pointer text-[#282F5A] rounded-full hover:bg-[#282F5A1F] transition-all duration-300"
             >
               <EditSvg />

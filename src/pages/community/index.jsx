@@ -1,42 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "../../common";
 import { useModal } from "../../context/modal";
 import { COMMUNITY_COLUMN } from "./column";
 import TableLayout from "../../components/layouts/TableLayout";
-import { EditCommunity, WarningModal } from "../../components";
-
-const sampleData = [
-  {
-    _id: "1",
-    name: "Community A",
-    members: 150,
-    createdAt: "2023-01-15",
-  },
-  {
-    _id: "2",
-    name: "Community B",
-    members: 200,
-    createdAt: "2023-02-20",
-  },
-  {
-    _id: "3",
-    name: "Community C",
-    members: 75,
-    createdAt: "2023-03-10",
-  },
-  {
-    _id: "4",
-    name: "Community D",
-    members: 300,
-    createdAt: "2023-04-05",
-  },
-  {
-    _id: "5",
-    name: "Community E",
-    members: 50,
-    createdAt: "2023-05-25",
-  },
-];
+import { CreateCommunity, EditCommunity, WarningModal } from "../../components";
+import { useGetCommunities } from "../../hooks";
 
 const Community = () => {
   const { openModal } = useModal();
@@ -44,31 +12,44 @@ const Community = () => {
     page: 1,
     search: "",
   });
-  const totalPages = 10;
+
+  const { data = [], isLoading = false } = useGetCommunities(queryParams);
+
+  const { data: communities, pagination } = data?.data || {};
 
   const handlePageChange = (page) => {
-    console.log(`Navigating to page ${page}`);
     setQueryParams((prev) => ({
       ...prev,
       page: page,
     }));
   };
 
+  const { currentPage, totalPages } = pagination || {};
+
   const handleSearch = (searchText) => {
     setQueryParams((prev) => ({
       ...prev,
       search: searchText,
-      page: 1, // Reset to first page on new search
+      page: 1,
     }));
   };
 
+  useEffect(() => {
+    if (currentPage && currentPage !== queryParams.page) {
+      setQueryParams((prev) => ({
+        ...prev,
+        page: currentPage,
+      }));
+    }
+  }, [currentPage]);
+
   const handleOpenModal = useCallback(() => {
-    openModal(<div>Add community</div>);
+    openModal(<CreateCommunity />);
   }, [openModal]);
 
   const openEditModal = useCallback(
-    (id) => {
-      openModal(<EditCommunity />);
+    (data) => {
+      openModal(<EditCommunity data={data} />);
     },
     [openModal]
   );
@@ -95,8 +76,8 @@ const Community = () => {
       title="Communities"
       actionButton={actionButton}
       columns={COMMUNITY_COLUMNS}
-      data={sampleData}
-      loading={false}
+      data={communities}
+      loading={isLoading}
       queryParams={queryParams}
       totalPages={totalPages}
       onPageChange={handlePageChange}

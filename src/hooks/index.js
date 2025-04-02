@@ -12,6 +12,7 @@ import useUpdateDoctor from "./doctors/useUpdateDoctor";
 import useDeleteUser from "./doctors/useDeleteDoctor";
 import useGetBlogs from "./blogs/useGetBlogs";
 import useUpdateStatus from "./blogs/useUpdateStatus";
+import useGetCommunities from "./community/useGetCommunities";
 export {
   useLogin,
   useLogout,
@@ -27,4 +28,5 @@ export {
   useUpdateDoctor,
   useGetBlogs,
   useUpdateStatus,
+  useGetCommunities,
 };

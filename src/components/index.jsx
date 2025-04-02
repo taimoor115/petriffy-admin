@@ -10,6 +10,8 @@ import WarningModal from "./modals/warning";
 import Pagination from "./pagination";
 import ProtectedRoute from "./protected-route";
 import Skeleton from "./skeleton";
+import CommunityForm from "./forms/community-form";
+import CreateCommunity from "./modals/create-community";
 export {
   Checkbox,
   EditCommunity,
@@ -23,4 +25,6 @@ export {
   StatisticsCard,
   WarningModal,
   Skeleton,
+  CommunityForm,
+  CreateCommunity,
 };
