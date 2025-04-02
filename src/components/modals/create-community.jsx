@@ -1,7 +1,7 @@
 import { CommunityForm } from "../../components";
 import useCreateCommunity from "../../hooks/community/useCreateCommunity";
 
-const CreateCommunity = () => {
+const CreateCommunity = ({ closeModal }) => {
   const initialValues = {
     name: "",
     description: "",
@@ -13,6 +13,7 @@ const CreateCommunity = () => {
     setSubmitting(true);
     await createCommunity({ body: values });
     setSubmitting(false);
+    closeModal();
   };
 
   return (

@@ -5,7 +5,7 @@ import { useModal } from "../../context/modal";
 import { COMMUNITY_SCHEMA } from "../../schema/profile.schema";
 import InputField from "../form-components/input-box";
 
-const CommunityForm = ({ initialValues, onSubmit }) => {
+const CommunityForm = ({ initialValues, onSubmit, text = "Create" }) => {
   const { closeModal: onClose } = useModal();
   const [previewUrl, setPreviewUrl] = useState(initialValues.image || "");
 
@@ -75,7 +75,7 @@ const CommunityForm = ({ initialValues, onSubmit }) => {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Creating..." : "Create"}
+              {isSubmitting ? "Loading..." : text}
             </Button>
             <Button
               className="px-4 py-2 mt-4 ml-4 text-sm font-semibold text-black border rounded-md border-[#e6e3e3] hover:bg-custom_black hover:text-white"

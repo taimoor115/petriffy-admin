@@ -13,6 +13,7 @@ import useDeleteUser from "./doctors/useDeleteDoctor";
 import useGetBlogs from "./blogs/useGetBlogs";
 import useUpdateStatus from "./blogs/useUpdateStatus";
 import useGetCommunities from "./community/useGetCommunities";
+import useUpdateCommunity from "./community/useUpdateCommunity";
 export {
   useLogin,
   useLogout,
@@ -29,4 +30,5 @@ export {
   useGetBlogs,
   useUpdateStatus,
   useGetCommunities,
+  useUpdateCommunity,
 };

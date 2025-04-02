@@ -7,7 +7,7 @@ import { CreateCommunity, EditCommunity, WarningModal } from "../../components";
 import { useGetCommunities } from "../../hooks";
 
 const Community = () => {
-  const { openModal } = useModal();
+  const { openModal, closeModal } = useModal();
   const [queryParams, setQueryParams] = useState({
     page: 1,
     search: "",
@@ -44,12 +44,12 @@ const Community = () => {
   }, [currentPage]);
 
   const handleOpenModal = useCallback(() => {
-    openModal(<CreateCommunity />);
+    openModal(<CreateCommunity closeModal={closeModal} />);
   }, [openModal]);
 
   const openEditModal = useCallback(
     (data) => {
-      openModal(<EditCommunity data={data} />);
+      openModal(<EditCommunity closeModal={closeModal} data={data} />);
     },
     [openModal]
   );
