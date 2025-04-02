@@ -8,6 +8,7 @@ const WarningModal = ({ onConfirm, onClose }) => {
     setIsLoading(true);
     await onConfirm();
     setIsLoading(false);
+    onClose();
   };
   return (
     <div className="p-6">

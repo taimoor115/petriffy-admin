@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "../../common";
-import { useModal } from "../../context/modal";
-import { COMMUNITY_COLUMN } from "./column";
-import TableLayout from "../../components/layouts/TableLayout";
 import { CreateCommunity, EditCommunity, WarningModal } from "../../components";
-import { useGetCommunities } from "../../hooks";
+import TableLayout from "../../components/layouts/TableLayout";
+import { useModal } from "../../context/modal";
+import { useDeleteCommunity, useGetCommunities } from "../../hooks";
+import { COMMUNITY_COLUMN } from "./column";
 
 const Community = () => {
   const { openModal, closeModal } = useModal();
@@ -14,6 +14,7 @@ const Community = () => {
   });
 
   const { data = [], isLoading = false } = useGetCommunities(queryParams);
+  const { deleteCommunity } = useDeleteCommunity();
 
   const { data: communities, pagination } = data?.data || {};
 
@@ -54,9 +55,18 @@ const Community = () => {
     [openModal]
   );
 
+  const handleDeleteCommunity = async (id) => {
+    await deleteCommunity(id, {});
+  };
+
   const openWarningModal = useCallback(
     (id) => {
-      openModal(<WarningModal />);
+      openModal(
+        <WarningModal
+          onClose={closeModal}
+          onConfirm={() => handleDeleteCommunity(id)}
+        />
+      );
     },
     [openModal]
   );

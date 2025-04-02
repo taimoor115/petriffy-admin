@@ -14,6 +14,7 @@ import useGetBlogs from "./blogs/useGetBlogs";
 import useUpdateStatus from "./blogs/useUpdateStatus";
 import useGetCommunities from "./community/useGetCommunities";
 import useUpdateCommunity from "./community/useUpdateCommunity";
+import useDeleteCommunity from "./community/useDeleteCommunity";
 export {
   useLogin,
   useLogout,
@@ -31,4 +32,5 @@ export {
   useUpdateStatus,
   useGetCommunities,
   useUpdateCommunity,
+  useDeleteCommunity,
 };
