@@ -18,6 +18,7 @@ const Pagination = ({
   variant = "outline",
 }) => {
   const [maxVisiblePages, setMaxVisiblePages] = useState(5);
+  console.log(totalPages);
 
   useEffect(() => {
     const handleResize = () => {

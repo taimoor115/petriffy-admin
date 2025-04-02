@@ -1,50 +1,41 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { alternativeImg } from "../../assets/images";
 import { WarningModal } from "../../components";
 import TableLayout from "../../components/layouts/TableLayout";
 import { useModal } from "../../context/modal";
 import { COMMUNITY_DETAIL_COLUMN } from "./column";
-import { alternativeImg } from "../../assets/images";
+import { useGetMembers } from "../../hooks";
 
-const sampleData = [
-  {
-    _id: "1",
-    name: "John Doe",
-    email: "john.doe@example.com",
-  },
-  {
-    _id: "2",
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-  },
-  {
-    _id: "3",
-    name: "Alice Johnson",
-    email: "alice.johnson@example.com",
-  },
-  {
-    _id: "4",
-    name: "Bob Brown",
-    email: "bob.brown@example.com",
-  },
-];
 const CommunityDetail = () => {
-  const { openModal } = useModal();
-
-  const openWarningModal = useCallback(() => {
-    openModal(<WarningModal />);
-  }, [openModal]);
-  const community = {
-    name: "Community Name",
-    description:
-      "This is a description of the community.This is a description of the community.This is a description of the community.This is a description of the community.This is a description of the community.This is a description of the community.This is a description of the community.",
-    imageUrl: "path/to/image.jpg",
-  };
-
+  const location = useLocation();
   const [queryParams, setQueryParams] = useState({
     page: 1,
     search: "",
   });
-  const totalPages = 10;
+  const { community = {} } = location.state || {};
+
+  const { openModal } = useModal();
+
+  const { data = {}, isLoading = false } = useGetMembers(
+    community._id,
+    queryParams
+  );
+  const { data: memebers = [], pagination = {} } = data?.data || {};
+
+  const { currentPage, totalPages } = pagination || {};
+
+  useEffect(() => {
+    if (currentPage && currentPage !== queryParams.page) {
+      setQueryParams((prev) => ({
+        ...prev,
+        page: currentPage,
+      }));
+    }
+  }, [currentPage]);
+  const openWarningModal = useCallback(() => {
+    openModal(<WarningModal />);
+  }, [openModal]);
 
   const handlePageChange = (page) => {
     console.log(`Navigating to page ${page}`);
@@ -69,7 +60,7 @@ const CommunityDetail = () => {
       <div className="flex flex-col items-center p-4">
         <div className="w-32 h-32 mb-4">
           <img
-            src={alternativeImg}
+            src={community?.image || alternativeImg}
             alt={community.name}
             className="object-cover w-full h-full rounded-full"
           />
@@ -80,8 +71,8 @@ const CommunityDetail = () => {
       <TableLayout
         title="Community Members"
         columns={COMMUNITY_DETAIL_COLUMNS}
-        data={sampleData}
-        loading={false}
+        data={memebers}
+        loading={isLoading}
         queryParams={queryParams}
         totalPages={totalPages}
         onPageChange={handlePageChange}

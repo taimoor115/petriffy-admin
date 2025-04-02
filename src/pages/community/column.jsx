@@ -35,7 +35,7 @@ export const COMMUNITY_COLUMN = (openWarningModal, openEditModal) => [
             >
               <DeleteSvg />
             </Button>
-            <Link to={`/communities/${row._id}`}>
+            <Link to={`/community-detail`} state={{ community: row }}>
               <Button className="p-2 font-medium text-blue-600 transition-all duration-300 rounded-full cursor-pointer hover:bg-blue-100">
                 <EyeSvg />
               </Button>

@@ -27,7 +27,7 @@ const endpoint = {
     DELETE_COMMUNITIY: "/v1/communities/delete-community",
     CREATE_COMMUNITY: "/v1/communities/create-community",
     UPDATE_COMMUNITY: "/v1/communities/edit-community",
-    GET_COMMUNITY_MEMBERS: "/v1/communities/get-communitiy-members",
+    GET_COMMUNITY_MEMBERS: "/v1/communities/get-community-members",
     KICK_MEMBER: "/v1/communities/leave-member",
   },
 };

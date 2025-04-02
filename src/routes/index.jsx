@@ -31,7 +31,7 @@ const routes = [
   { path: "/blogs", element: <Blogs /> },
   { path: "/posts", element: <Posts /> },
   { path: "/users", element: <Users /> },
-  { path: "/communities/:communityId", element: <CommunityDetail /> },
+  { path: "/community-detail", element: <CommunityDetail /> },
   { path: "/blog-detail", element: <BlogDetail /> },
 ];
 
