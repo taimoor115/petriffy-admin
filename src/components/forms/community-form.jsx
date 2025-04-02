@@ -29,7 +29,7 @@ const CommunityForm = ({ initialValues, onSubmit, text = "Create" }) => {
       validationSchema={COMMUNITY_SCHEMA}
     >
       {({ setFieldValue, errors, touched, isSubmitting }) => (
-        <Form className="space-y-4">
+        <Form className="space-y-2">
           <Heading
             heading="Community Form"
             className="text-xl text-center md:text-2xl"

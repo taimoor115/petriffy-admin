@@ -38,7 +38,6 @@ const CommunityDetail = () => {
   }, [currentPage]);
 
   const handlePageChange = (page) => {
-    console.log(`Navigating to page ${page}`);
     setQueryParams((prev) => ({
       ...prev,
       page: page,
