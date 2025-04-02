@@ -5,10 +5,11 @@ import { WarningModal } from "../../components";
 import TableLayout from "../../components/layouts/TableLayout";
 import { useModal } from "../../context/modal";
 import { COMMUNITY_DETAIL_COLUMN } from "./column";
-import { useGetMembers } from "../../hooks";
+import { useGetMembers, useKickMember } from "../../hooks";
 
 const CommunityDetail = () => {
   const location = useLocation();
+  const { closeModal } = useModal();
   const [queryParams, setQueryParams] = useState({
     page: 1,
     search: "",
@@ -21,6 +22,8 @@ const CommunityDetail = () => {
     community._id,
     queryParams
   );
+
+  const { kickMember } = useKickMember();
   const { data: memebers = [], pagination = {} } = data?.data || {};
 
   const { currentPage, totalPages } = pagination || {};
@@ -33,9 +36,6 @@ const CommunityDetail = () => {
       }));
     }
   }, [currentPage]);
-  const openWarningModal = useCallback(() => {
-    openModal(<WarningModal />);
-  }, [openModal]);
 
   const handlePageChange = (page) => {
     console.log(`Navigating to page ${page}`);
@@ -53,7 +53,31 @@ const CommunityDetail = () => {
     }));
   };
 
-  const COMMUNITY_DETAIL_COLUMNS = COMMUNITY_DETAIL_COLUMN(openWarningModal);
+  const handleKickMember = async (id) => {
+    await kickMember({
+      body: {
+        communityId: community?._id,
+        userId: id,
+      },
+    });
+  };
+
+  const openWarningModal = useCallback(
+    (id) => {
+      openModal(
+        <WarningModal
+          onConfirm={() => handleKickMember(id)}
+          onClose={closeModal}
+        />
+      );
+    },
+    [openModal]
+  );
+
+  const COMMUNITY_DETAIL_COLUMNS = COMMUNITY_DETAIL_COLUMN(
+    openWarningModal,
+    handleKickMember
+  );
 
   return (
     <>
@@ -77,7 +101,7 @@ const CommunityDetail = () => {
         totalPages={totalPages}
         onPageChange={handlePageChange}
         onSearch={handleSearch}
-      />{" "}
+      />
     </>
   );
 };

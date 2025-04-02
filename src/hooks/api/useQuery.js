@@ -117,6 +117,7 @@ const useQueryApi = (endpoint, options = {}) => {
   const usePatchData = (mutationOptions = {}) => {
     return useMutation({
       mutationFn: async ({ id, body, queryParams = {}, headers = {} }) => {
+        console.log(id);
         try {
           const url = id ? `${endpoint}/${id}` : endpoint;
           const config = createConfig("PATCH", body, queryParams, headers);

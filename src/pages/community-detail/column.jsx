@@ -18,7 +18,7 @@ export const COMMUNITY_DETAIL_COLUMN = (openWarningModal) => [
         <div className="flex w-full">
           <div className="flex justify-start w-20">
             <Button
-              onClick={() => openWarningModal(row._id)}
+              onClick={() => openWarningModal(row.memberId)}
               className="p-2 font-medium text-red-600 transition-all duration-300 rounded-full cursor-pointer hover:bg-red-100"
             >
               Kick

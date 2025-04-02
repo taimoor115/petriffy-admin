@@ -16,6 +16,7 @@ import useGetCommunities from "./community/useGetCommunities";
 import useUpdateCommunity from "./community/useUpdateCommunity";
 import useDeleteCommunity from "./community/useDeleteCommunity";
 import useGetMembers from "./community/useGetMembers";
+import useKickMember from "./community/useKickMember";
 export {
   useLogin,
   useLogout,
@@ -35,4 +36,5 @@ export {
   useUpdateCommunity,
   useDeleteCommunity,
   useGetMembers,
+  useKickMember,
 };
