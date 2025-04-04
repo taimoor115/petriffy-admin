@@ -1,4 +1,3 @@
-import Sidebar from "../components/sidebar";
 import StatisticsCard from "./cards/statisitics-cards";
 import Checkbox from "./form-components/checkbox";
 import InputField from "./form-components/input-box";
@@ -12,6 +11,7 @@ import ProtectedRoute from "./protected-route";
 import Skeleton from "./skeleton";
 import CommunityForm from "./forms/community-form";
 import CreateCommunity from "./modals/create-community";
+import Sidebar from "./sidebar/index";
 export {
   Checkbox,
   EditCommunity,
@@ -21,9 +21,9 @@ export {
   Pagination,
   ProtectedRoute,
   RegisterDoctor,
-  Sidebar,
   StatisticsCard,
   WarningModal,
+  Sidebar,
   Skeleton,
   CommunityForm,
   CreateCommunity,

@@ -11,15 +11,15 @@ import { ModalProvider } from "./context/modal";
 import { queryClient } from "./utils/query-client";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <ModalProvider>
-        <Toaster duration={2000} position="bottom-right" />
-        <App />
-        <ReactQueryDevtools />
-      </ModalProvider>
-    </AuthProvider>
-  </QueryClientProvider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <ModalProvider>
+          <Toaster duration={2000} position="bottom-right" />
+          <App />
+          <ReactQueryDevtools />
+        </ModalProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  </React.StrictMode>
 );
