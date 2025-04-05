@@ -1,4 +1,5 @@
 import { Button } from "../../common";
+import formatTime from "../../utils/format-time";
 
 export const USERS_COLUMN = (openWarningModal) => [
   {
@@ -20,11 +21,9 @@ export const USERS_COLUMN = (openWarningModal) => [
   {
     key: "createdAt",
     label: "Created At",
+    render: (row) => <span>{formatTime(row?.createdAt)}</span>,
   },
-  {
-    key: "city",
-    label: "City",
-  },
+
   {
     key: "action",
     label: "Action",

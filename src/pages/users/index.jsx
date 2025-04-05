@@ -1,44 +1,35 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { WarningModal } from "../../components";
 import TableLayout from "../../components/layouts/TableLayout";
 import { useModal } from "../../context/modal";
+import { useDeleteUsers, useGetUsers } from "../../hooks";
 import { USERS_COLUMN } from "./column";
-import { WarningModal } from "../../components";
-const dummyData = [
-  {
-    _id: "1",
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phoneNumber: "123-456-7890",
-    country: "USA",
-    createdAt: "2023-01-01",
-    city: "New York",
-  },
-  {
-    _id: "2",
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    phoneNumber: "987-654-3210",
-    country: "Canada",
-    createdAt: "2023-02-01",
-    city: "Toronto",
-  },
-  {
-    _id: "3",
-    name: "Alice Johnson",
-    email: "alice.johnson@example.com",
-    phoneNumber: "555-555-5555",
-    country: "UK",
-    createdAt: "2023-03-01",
-    city: "London",
-  },
-];
+
 const Users = () => {
-  const { openModal } = useModal();
+  const { openModal, closeModal: onClose } = useModal();
+
   const [queryParams, setQueryParams] = useState({
     page: 1,
     search: "",
   });
-  const totalPages = 10;
+
+  const { data = {}, isLoading: isUserFetching = false } =
+    useGetUsers(queryParams);
+
+  const { deleteUser, isLoading: isUserDeleting } = useDeleteUsers();
+
+  const { data: users = [], pagination = {} } = data?.data || {};
+
+  const { currentPage, totalPages } = pagination || {};
+
+  useEffect(() => {
+    if (currentPage && currentPage !== queryParams.page) {
+      setQueryParams((prev) => ({
+        ...prev,
+        page: currentPage,
+      }));
+    }
+  }, [currentPage]);
 
   const handlePageChange = (page) => {
     setQueryParams((prev) => ({
@@ -55,21 +46,35 @@ const Users = () => {
     }));
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await deleteUser(id, {});
+      onClose();
+    } catch (error) {
+      console.error("Error deleting doctor:", error);
+    }
+  };
   const openWarningModal = useCallback(
     (id) => {
-      openModal(<WarningModal />);
+      openModal(
+        <WarningModal
+          key={isUserDeleting}
+          isLoading={isUserDeleting}
+          onConfirm={() => handleDelete(id)}
+          onClose={onClose}
+        />
+      );
     },
     [openModal]
   );
-
   const USERS_COLUMNS = USERS_COLUMN(openWarningModal);
 
   return (
     <TableLayout
       title="Users"
       columns={USERS_COLUMNS}
-      data={dummyData}
-      loading={false}
+      data={users}
+      loading={isUserFetching}
       queryParams={queryParams}
       totalPages={totalPages}
       onPageChange={handlePageChange}

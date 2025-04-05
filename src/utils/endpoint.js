@@ -33,6 +33,10 @@ const endpoint = {
   POSTS: {
     GET_POSTS: "/v1/admin/get-all-posts",
     DELETE_POST: "/v1/posts/delete-post"
+  },
+  USERS: {
+    GET_USERS: "/v1/admin/get-all-users",
+    DELETE_USER: "/v1/admin/delete-user"
   }
 };
 

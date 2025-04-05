@@ -20,7 +20,7 @@ const useLogout = () => {
   });
 
   return {
-    logout: logoutMutation.mutate,
+    logout: logoutMutation.mutateAsync,
     isLoading: logoutMutation.isPending,
     error: logoutMutation.error,
   };
