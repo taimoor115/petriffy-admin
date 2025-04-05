@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { Formik, Form } from "formik";
 import InputField from "../../../components/form-components/input-box";
 import { loginSchema } from "../../../schema/auth.schema";
@@ -6,10 +6,20 @@ import { Button, Heading } from "../../../common";
 import { LogoSvg } from "../../../assets/svgs";
 import { useLogin } from "../../../hooks";
 import { encryptPassword } from "../../../utils/encrypt-password";
+import { useAuth } from "../../../context/auth";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { login, isLoading } = useLogin();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const inputFields = useMemo(
     () => [

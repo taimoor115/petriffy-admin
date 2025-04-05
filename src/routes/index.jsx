@@ -43,11 +43,7 @@ const routes = [
 const router = createBrowserRouter([
   {
     path: "/auth/login",
-    element: (
-      <ProtectedRoute allowedRoles={[]}>
-        <Login />
-      </ProtectedRoute>
-    ),
+    element: <Login />,
     errorElement: <ClientError />,
     public: true,
   },

@@ -29,7 +29,7 @@ const Logout = () => {
           onClick={handleLogout}
           disabled={isLoading}
         >
-          Submit
+          {isLoading ? "Logging out..." : "Logout"}
         </Button>
         <Button
           onClick={closeModal}
