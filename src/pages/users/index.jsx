@@ -41,7 +41,6 @@ const Users = () => {
   const totalPages = 10;
 
   const handlePageChange = (page) => {
-    console.log(`Navigating to page ${page}`);
     setQueryParams((prev) => ({
       ...prev,
       page: page,

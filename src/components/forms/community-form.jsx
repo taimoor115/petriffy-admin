@@ -15,7 +15,7 @@ const CommunityForm = ({ initialValues, onSubmit, text = "Create" }) => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewUrl(reader.result);
-        console.log(reader.result);
+
         setFieldValue("image", reader.result);
       };
       reader.readAsDataURL(file);

@@ -3,7 +3,7 @@ import { useAuth } from "../../context/auth";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user } = useAuth();
-  console.log(user);
+
   const location = useLocation();
 
   if (!user) {

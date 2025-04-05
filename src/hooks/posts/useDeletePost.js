@@ -7,7 +7,7 @@ const useDeletePost = () => {
     const { usePatchData } = useQueryApi(ENDPOINT);
     const deletePost = usePatchData({
         onSuccess: () => {
-            invalidateQuery(endpoint.POSTS.DELETE_POST);
+            invalidateQuery(endpoint.POSTS.GET_POSTS);
         },
         onError: (error) => {
             toast.error(error);

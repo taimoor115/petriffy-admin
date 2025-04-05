@@ -18,7 +18,6 @@ const Posts = () => {
 
   const { deletePost, isLoading: isPostDeleting } = useDeletePost();
 
-  console.log(data);
   const { data: posts = [], pagination = {} } = data?.data || {};
 
   const { currentPage, totalPages } = pagination || {};
