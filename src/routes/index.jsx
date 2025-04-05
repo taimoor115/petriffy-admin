@@ -21,24 +21,33 @@ const ProtectedRouteWrapper = ({ children }) => (
 );
 
 const routes = [
-  { path: "/", element: <Home /> },
-  { path: "/profile", element: <Profile /> },
-  { path: "/doctors", element: <Doctors /> },
+  { path: "/", element: <Home />, allowedRoles: ["ADMIN"] },
+  { path: "/profile", element: <Profile />, allowedRoles: ["ADMIN"] },
+  { path: "/doctors", element: <Doctors />, allowedRoles: ["ADMIN"] },
   {
     path: "/communities",
     element: <Community />,
+    allowedRoles: ["ADMIN"],
   },
-  { path: "/blogs", element: <Blogs /> },
-  { path: "/posts", element: <Posts /> },
-  { path: "/users", element: <Users /> },
-  { path: "/community-detail", element: <CommunityDetail /> },
-  { path: "/blog-detail", element: <BlogDetail /> },
+  { path: "/blogs", element: <Blogs />, allowedRoles: ["ADMIN"] },
+  { path: "/posts", element: <Posts />, allowedRoles: ["ADMIN"] },
+  { path: "/users", element: <Users />, allowedRoles: ["ADMIN"] },
+  {
+    path: "/community-detail",
+    element: <CommunityDetail />,
+    allowedRoles: ["ADMIN"],
+  },
+  { path: "/blog-detail", element: <BlogDetail />, allowedRoles: ["ADMIN"] },
 ];
 
 const router = createBrowserRouter([
   {
     path: "/auth/login",
-    element: <Login />,
+    element: (
+      <ProtectedRoute allowedRoles={[]}>
+        <Login />
+      </ProtectedRoute>
+    ),
     errorElement: <ClientError />,
     public: true,
   },

@@ -1,44 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
-import TableLayout from "../../components/layouts/TableLayout";
-import { POSTS_COLUMN } from "./column";
-import { useModal } from "../../context/modal";
 import { WarningModal } from "../../components";
-import { useGetPosts } from "../../hooks";
+import TableLayout from "../../components/layouts/TableLayout";
+import { useModal } from "../../context/modal";
+import { useDeletePost, useGetPosts } from "../../hooks";
+import { POSTS_COLUMN } from "./column";
 
-export const dummyData = [
-  {
-    _id: "1",
-    title: "Post One",
-    author: "Author A",
-    category: "Category 1",
-    age: 2,
-    isVaccinated: true,
-    city: "City 1",
-    status: "Published",
-  },
-  {
-    _id: "2",
-    title: "Post Two",
-    author: "Author B",
-    category: "Category 2",
-    age: 1,
-    isVaccinated: false,
-    city: "City 2",
-    status: "Draft",
-  },
-  {
-    _id: "3",
-    title: "Post Three",
-    author: "Author C",
-    category: "Category 1",
-    age: 3,
-    isVaccinated: true,
-    city: "City 3",
-    status: "Published",
-  },
-];
 const Posts = () => {
-  const { openModal } = useModal();
+  const { openModal, closeModal: onClose } = useModal();
+
   const [queryParams, setQueryParams] = useState({
     page: 1,
     search: "",
@@ -46,6 +15,8 @@ const Posts = () => {
 
   const { data = {}, isLoading: isPostFetching = false } =
     useGetPosts(queryParams);
+
+  const { deletePost, isLoading: isPostDeleting } = useDeletePost();
 
   console.log(data);
   const { data: posts = [], pagination = {} } = data?.data || {};
@@ -62,7 +33,6 @@ const Posts = () => {
   }, [currentPage]);
 
   const handlePageChange = (page) => {
-    console.log(`Navigating to page ${page}`);
     setQueryParams((prev) => ({
       ...prev,
       page: page,
@@ -77,9 +47,24 @@ const Posts = () => {
     }));
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await deletePost(id, {});
+      onClose();
+    } catch (error) {
+      console.error("Error deleting doctor:", error);
+    }
+  };
   const openWarningModal = useCallback(
     (id) => {
-      openModal(<WarningModal />);
+      openModal(
+        <WarningModal
+          key={isPostDeleting}
+          isLoading={isPostDeleting}
+          onConfirm={() => handleDelete(id)}
+          onClose={onClose}
+        />
+      );
     },
     [openModal]
   );
