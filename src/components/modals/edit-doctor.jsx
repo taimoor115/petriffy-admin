@@ -62,7 +62,7 @@ const EditDoctor = ({ data }) => {
           </Button>
           <Button
             className="px-4 py-2 mt-4 ml-4 text-sm font-semibold text-black border rounded-md border-[#e6e3e3] hover:bg-custom_black hover:text-white"
-            type="submit"
+            type="button"
           >
             Cancel
           </Button>
