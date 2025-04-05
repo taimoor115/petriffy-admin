@@ -30,6 +30,10 @@ const endpoint = {
     GET_COMMUNITY_MEMBERS: "/v1/communities/get-community-members",
     KICK_MEMBER: "/v1/communities/leave-member",
   },
+  POSTS: {
+    GET_POSTS: "/v1/admin/get-all-posts",
+    DELETE_POST: "/v1/posts/delete-post"
+  }
 };
 
 export default endpoint;

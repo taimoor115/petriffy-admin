@@ -1,8 +1,9 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import TableLayout from "../../components/layouts/TableLayout";
 import { POSTS_COLUMN } from "./column";
 import { useModal } from "../../context/modal";
 import { WarningModal } from "../../components";
+import { useGetPosts } from "../../hooks";
 
 export const dummyData = [
   {
@@ -42,7 +43,23 @@ const Posts = () => {
     page: 1,
     search: "",
   });
-  const totalPages = 10;
+
+  const { data = {}, isLoading: isPostFetching = false } =
+    useGetPosts(queryParams);
+
+  console.log(data);
+  const { data: posts = [], pagination = {} } = data?.data || {};
+
+  const { currentPage, totalPages } = pagination || {};
+
+  useEffect(() => {
+    if (currentPage && currentPage !== queryParams.page) {
+      setQueryParams((prev) => ({
+        ...prev,
+        page: currentPage,
+      }));
+    }
+  }, [currentPage]);
 
   const handlePageChange = (page) => {
     console.log(`Navigating to page ${page}`);
@@ -73,8 +90,8 @@ const Posts = () => {
     <TableLayout
       title="Posts"
       columns={POSTS_COLUMNS}
-      data={dummyData}
-      loading={false}
+      data={posts}
+      loading={isPostFetching}
       queryParams={queryParams}
       totalPages={totalPages}
       onPageChange={handlePageChange}

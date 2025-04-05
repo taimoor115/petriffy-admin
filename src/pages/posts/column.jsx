@@ -7,8 +7,9 @@ export const POSTS_COLUMN = (openWarningModal) => [
     label: "Title",
   },
   {
-    key: "author",
+    key: "Author",
     label: "Author",
+    render: (row) => <span>{row?.author}</span>,
   },
   {
     key: "category",
@@ -30,6 +31,7 @@ export const POSTS_COLUMN = (openWarningModal) => [
   {
     key: "city",
     label: "City",
+    render: (row) => <p>{row.location.city}</p>,
   },
   {
     key: "action",
