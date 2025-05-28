@@ -1,5 +1,6 @@
 import { DropdownButton, Heading, Modal, Spinner } from "../../common";
 import { Logout, StatisticsCard } from "../../components";
+import SpiralPostsChart from "../../components/graph/radial";
 import { useModal } from "../../context/modal";
 import { useGetStatistics } from "../../hooks";
 
@@ -67,7 +68,7 @@ const Home = () => {
   return (
     <section className="container">
       <Spinner loadingStates={loadingStates} />
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between items-center">
         <Heading heading="Statistics" />
         <DropdownButton title="Admin" options={options} />
       </div>
@@ -77,6 +78,9 @@ const Home = () => {
           <StatisticsCard key={index} title={item.title} stats={item.count} />
         ))}
       </section>
+
+
+      <SpiralPostsChart />
 
       <Modal />
     </section>
