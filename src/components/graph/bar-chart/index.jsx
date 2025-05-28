@@ -25,7 +25,7 @@ export default function UserBarChart({ data }) {
   const minCount = Math.min(...chartData?.map((item) => item.count));
 
   return (
-    <div className="p-6 w-full">
+        <div className="mt-5 w-full">
       <div className="flex flex-col justify-center items-center mb-6">
         <h2 className="text-2xl font-bold">Monthly Data for 2025</h2>
         <p className="text-muted-foreground">
