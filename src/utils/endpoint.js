@@ -40,6 +40,7 @@ const endpoint = {
   },
   GRAPH: {
     POSTS_COUNT: "/v1/admin/get-post-graph",
+    USER_COUNT:"/v1/users/get-graph-users"
   },
 };
 
