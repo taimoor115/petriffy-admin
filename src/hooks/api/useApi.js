@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { axiosWithToken, axiosWithoutToken } from "../api";
+import { axiosWithToken, axiosWithoutToken } from "../../api";
 
 const useApi = (useTokenInstance = true) => {
   const [loading, setLoading] = useState(false);
