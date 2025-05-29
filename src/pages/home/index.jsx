@@ -107,7 +107,7 @@ const Home = () => {
         ))}
       </section>
 
-      <div className="grid grid-cols-1 gap-x-5 place-items-center md:grid-cols-1">
+      <div className="grid grid-cols-1 gap-x-5 place-items-center md:grid-cols-2">
         <SpiralPostsChart apiData={apiData} />
         <UserBarChart data={usersCount} />
       </div>
