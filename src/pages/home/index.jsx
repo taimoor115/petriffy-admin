@@ -71,18 +71,7 @@ const Home = () => {
       title: "Total blogs",
       count: statisitics?.totalBlogs || "0",
     },
-    {
-      title: "Total Free posts",
-      count: statisitics?.totalFreePosts || "0",
-    },
-    {
-      title: "Total Silver posts",
-      count: statisitics?.totalSilverPosts || "0",
-    },
-    {
-      title: "Total Diamond posts",
-      count: statisitics?.totalDiamondPosts || "0",
-    },
+   
     {
       title: "Total Posts",
       count: statisitics?.totalPosts || "0",
@@ -91,8 +80,6 @@ const Home = () => {
 
   if (isStatisticsFetching || isFetchingUsersCount || isPostsCountFetching)
     return <Spinner loadingStates={loadingStates} />;
-
- 
 
   return (
     <section className="container">
