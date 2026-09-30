@@ -1,0 +1,88 @@
+#!/bin/bash
+# ==============================================================================
+# Git Pre-Commit Security Hook: Malware & Stealth Injection Blocker
+# Prevents accidental staging/committing of obfuscated malware payloads & shims.
+# ==============================================================================
+
+# High-signal malware patterns that must NEVER be committed to source code
+MALWARE_REGEX='global\.(o|i|r|m)[[:space:]]*=|_\$_[0-9a-f]{4}|_\$jsoToArr|_\$jsoIter|String\.fromCharCode\(127\)|5-[0-9]{4}-du|eth_(blockNumber|getBlockByNumber)|publicnode\.com|drpc\.org|blastapi\.io'
+
+# Hidden injection pattern: 100+ consecutive spaces followed by non-space code on the same line
+HIDDEN_SPACE_REGEX=';[[:space:]]{100,}[^[:space:]]'
+
+# Config files where createRequire shims should NEVER be injected
+CONFIG_FILE_REGEX='(^|/)(postcss\.config\.|vite\.config\.|next\.config\.|tailwind\.config\.|eslint\.config\.|webpack\.config\.)'
+
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
+
+if [ -z "$STAGED_FILES" ]; then
+    exit 0
+fi
+
+ERRORS_FOUND=0
+
+for FILE in $STAGED_FILES; do
+    # Skip documentation, lockfiles, and markdown
+    case "$FILE" in
+        *.md|*.txt|*.lock|package-lock.json|pnpm-lock.yaml|yarn.lock|*.pdf|*.png|*.jpg|*.svg|*.ico)
+            continue
+            ;;
+    esac
+
+    # Only inspect added lines in staged changes
+    ADDED_LINES=$(git diff --cached -U0 "$FILE" | grep -E "^\+[^\+]")
+
+    if [ -z "$ADDED_LINES" ]; then
+        continue
+    fi
+
+    # 1. Check for known malware signatures
+    MATCH_MALWARE=$(echo "$ADDED_LINES" | grep -nE "$MALWARE_REGEX")
+    if [ -n "$MATCH_MALWARE" ]; then
+        echo ""
+        echo "🚨 [SECURITY BLOCKED] Malicious code payload detected in staged file: $FILE"
+        echo "   Pattern matched: High-risk obfuscated signature / global.o worm"
+        echo "$MATCH_MALWARE" | head -n 5 | sed 's/^/   Line diff: /'
+        ERRORS_FOUND=$((ERRORS_FOUND + 1))
+    fi
+
+    # 2. Check for hidden whitespace obfuscation (>100 consecutive spaces before code)
+    MATCH_SPACES=$(echo "$ADDED_LINES" | grep -nE "$HIDDEN_SPACE_REGEX")
+    if [ -n "$MATCH_SPACES" ]; then
+        echo ""
+        echo "🚨 [SECURITY BLOCKED] Stealth whitespace padding detected in: $FILE"
+        echo "   Pattern matched: 100+ consecutive spaces used to hide payload off-screen"
+        echo "$MATCH_SPACES" | head -n 3 | cut -c1-150 | sed 's/^/   Line diff: /'
+        ERRORS_FOUND=$((ERRORS_FOUND + 1))
+    fi
+
+    # 3. Check for createRequire shims inserted into config files
+    if echo "$FILE" | grep -qE "$CONFIG_FILE_REGEX"; then
+        MATCH_SHIM=$(echo "$ADDED_LINES" | grep -nE "createRequire\s*\(|from[[:space:]]+['\"](node:)?module['\"]")
+        if [ -n "$MATCH_SHIM" ]; then
+            echo ""
+            echo "🚨 [SECURITY BLOCKED] Unauthorized createRequire shim in config file: $FILE"
+            echo "   Malware frequently inserts createRequire into ESM config files to bootstrap CommonJS payloads."
+            echo "$MATCH_SHIM" | head -n 3 | sed 's/^/   Line diff: /'
+            ERRORS_FOUND=$((ERRORS_FOUND + 1))
+        fi
+    fi
+
+    # 4. Check for dangerous invisible Unicode characters (Bidi overrides, zero-width spaces)
+    MATCH_BIDI=$(echo "$ADDED_LINES" | grep -P "[\x{200B}-\x{200F}\x{202A}-\x{202E}\x{2060}-\x{2064}\x{FE00}-\x{FE0F}]" 2>/dev/null)
+    if [ -n "$MATCH_BIDI" ]; then
+        echo ""
+        echo "🚨 [SECURITY BLOCKED] Invisible / Bidi Unicode characters detected in: $FILE"
+        ERRORS_FOUND=$((ERRORS_FOUND + 1))
+    fi
+done
+
+if [ $ERRORS_FOUND -gt 0 ]; then
+    echo ""
+    echo "❌ COMMIT REJECTED: $ERRORS_FOUND security policy violation(s) found in staged changes."
+    echo "👉 Please inspect the flagged files, remove the injected code, and stage again."
+    echo "💡 To inspect the full content off-screen: enable word wrap in your editor or run: git diff --cached"
+    exit 1
+fi
+
+exit 0

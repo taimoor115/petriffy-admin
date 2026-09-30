@@ -1,0 +1,41 @@
+name: Security Anti-Malware Guard
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  malware-scan:
+    name: Check for Injected Code & Stealth Whitespace
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Scan Diff for Malware & Obfuscated Payloads
+        run: |
+          echo "Scanning changes for malware signatures..."
+          H='global\.(o|i|r|m)[[:space:]]*=|_\$_[0-9a-f]{4}|_\$jsoToArr|_\$jsoIter|String\.fromCharCode\(127\)|5-[0-9]{4}-du|eth_(blockNumber|getBlockByNumber)|publicnode\.com|drpc\.org|blastapi\.io'
+          SPACES=';[[:space:]]{100,}[^[:space:]]'
+          
+          # Check full repository tree for critical malware signatures
+          MALWARE_MATCHES=$(git grep -nIE "$H" -- . ':!package-lock.json' ':!*.lock' ':!*.md' ':!*.pdf' || true)
+          if [ -n "$MALWARE_MATCHES" ]; then
+            echo "❌ CRITICAL SECURITY ALERT: Obfuscated malware signature found!"
+            echo "$MALWARE_MATCHES"
+            exit 1
+          fi
+
+          # Check for hidden stealth whitespace padding in code files
+          SPACE_MATCHES=$(git grep -nIE "$SPACES" -- '*.js' '*.jsx' '*.ts' '*.tsx' '*.mjs' '*.cjs' || true)
+          if [ -n "$SPACE_MATCHES" ]; then
+            echo "❌ CRITICAL SECURITY ALERT: Stealth whitespace padding (>100 spaces) found!"
+            echo "$SPACE_MATCHES" | cut -c1-200
+            exit 1
+          fi
+
+          echo "✅ Security scan passed. No malicious code detected."
